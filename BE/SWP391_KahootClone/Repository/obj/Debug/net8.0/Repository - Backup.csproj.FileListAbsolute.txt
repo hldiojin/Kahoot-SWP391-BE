@@ -1,0 +1,5 @@
+D:\8\SWP_391_B3W\BE\SWP391_KahootClone\Repository\obj\Debug\net8.0\Repository - Backup.csproj.AssemblyReference.cache
+D:\8\SWP_391_B3W\BE\SWP391_KahootClone\Repository\obj\Debug\net8.0\Repository - Backup.GeneratedMSBuildEditorConfig.editorconfig
+D:\8\SWP_391_B3W\BE\SWP391_KahootClone\Repository\obj\Debug\net8.0\Repository - Backup.AssemblyInfoInputs.cache
+D:\8\SWP_391_B3W\BE\SWP391_KahootClone\Repository\obj\Debug\net8.0\Repository - Backup.AssemblyInfo.cs
+D:\8\SWP_391_B3W\BE\SWP391_KahootClone\Repository\obj\Debug\net8.0\Repository - Backup.csproj.CoreCompileInputs.cache
