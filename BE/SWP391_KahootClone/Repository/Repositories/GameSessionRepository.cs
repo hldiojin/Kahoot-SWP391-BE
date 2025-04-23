@@ -10,5 +10,8 @@ namespace Repository.Repositories
 {
     public class GameSessionRepository : GenericRepository<GameSession>
     {
+        public GameSessionRepository() { }
+
+        public GameSessionRepository(SWP_KahootContext context) => _context = context;
     }
 }

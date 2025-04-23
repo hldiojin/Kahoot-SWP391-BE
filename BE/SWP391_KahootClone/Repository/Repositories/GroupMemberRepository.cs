@@ -10,5 +10,8 @@ namespace Repository.Repositories
 {
     public class GroupMemberRepository : GenericRepository<GroupMember>
     {
+        public GroupMemberRepository() { }
+
+        public GroupMemberRepository(SWP_KahootContext context) => _context = context;
     }
 }

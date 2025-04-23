@@ -1,0 +1,16 @@
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.csproj.AssemblyReference.cache
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.AssemblyInfoInputs.cache
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.AssemblyInfo.cs
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.csproj.CoreCompileInputs.cache
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.sourcelink.json
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Service.deps.json
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Service.dll
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Service.pdb
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Repository.dll
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Repository.pdb
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.csproj.Up2Date
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.dll
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\refint\Service.dll
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.pdb
+D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\ref\Service.dll

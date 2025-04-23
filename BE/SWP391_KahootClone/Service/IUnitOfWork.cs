@@ -17,10 +17,10 @@ namespace Service
         PlayerRepository PlayerRepository { get; }
         PlayerAnswerRepository PlayerAnswerRepository { get; }
         GroupRepository GroupRepository { get; }
-        IGroupMemberRepository GroupMemberRepository { get; }
-        IServicePackRepository ServicePackRepository { get; }
-        IUserServicePackRepository UserServicePackRepository { get; }
-        IPaymentRepository PaymentRepository { get; }
+        GroupMemberRepository GroupMemberRepository { get; }
+        ServicePackRepository ServicePackRepository { get; }
+        UserServicePackRepository UserServicePackRepository { get; }
+        PaymentRepository PaymentRepository { get; }
 
         Task<int> SaveChangesAsync();
     }

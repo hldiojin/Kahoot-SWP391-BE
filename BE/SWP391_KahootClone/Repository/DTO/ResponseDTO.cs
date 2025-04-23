@@ -6,24 +6,25 @@ using System.Threading.Tasks;
 
 namespace Repository.DTO
 {
- 
-        public class ResponseDTO
-        {
-            public List<UserResponseDTO> Users { get; set; } = new List<UserResponseDTO>();
-            public List<QuizResponseDTO> Quizzes { get; set; } = new List<QuizResponseDTO>();
-            public List<CategoryResponseDTO> Categories { get; set; } = new List<CategoryResponseDTO>();
-            public List<QuestionResponseDTO> Questions { get; set; } = new List<QuestionResponseDTO>();
-            public List<GameSessionResponseDTO> GameSessions { get; set; } = new List<GameSessionResponseDTO>();
-            public List<PlayerResponseDTO> Players { get; set; } = new List<PlayerResponseDTO>();
-            public List<PlayerAnswerResponseDTO> PlayerAnswers { get; set; } = new List<PlayerAnswerResponseDTO>();
-            public List<GroupResponseDTO> Groups { get; set; } = new List<GroupResponseDTO>();
-            public List<GroupMemberResponseDTO> GroupMembers { get; set; } = new List<GroupMemberResponseDTO>();
-            public List<ServicePackResponseDTO> ServicePacks { get; set; } = new List<ServicePackResponseDTO>();
-            public List<UserServicePackResponseDTO> UserServicePacks { get; set; } = new List<UserServicePackResponseDTO>();
-            public List<PaymentResponseDTO> Payments { get; set; } = new List<PaymentResponseDTO>();
-        
 
-        public class UserResponseDTO
+    public class ResponseDTO
+    {
+        public int Status { get; set; }
+        public string? Message { get; set; }
+        public object? Data { get; set; }
+        public ResponseDTO(int status, string? message, object? data = null)
+        {
+            Status = status;
+            Message = message;
+            Data = data;
+        }
+
+
+    }
+
+
+
+    public class UserResponseDTO
         {
             public int Id { get; set; }
             public string Username { get; set; }
@@ -164,4 +165,3 @@ namespace Repository.DTO
         }
     }
 
-}

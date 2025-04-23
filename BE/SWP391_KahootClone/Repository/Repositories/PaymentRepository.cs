@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Repository.Repositories
 {
-    public class PaymentRepository : GenericRepository<Payment> { 
+    public class PaymentRepository : GenericRepository<Payment> {
+        public PaymentRepository() { }
+
+        public PaymentRepository(SWP_KahootContext context) => _context = context;
     }
 }

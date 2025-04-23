@@ -438,6 +438,7 @@ public partial class SWP_KahootContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("username");
+
         });
 
         modelBuilder.Entity<UserServicePack>(entity =>

@@ -10,5 +10,8 @@ namespace Repository.Repositories
 {
     public class UserServicePackRepository : GenericRepository<UserServicePack>
     {
+        public UserServicePackRepository() { }
+
+        public UserServicePackRepository(SWP_KahootContext context) => _context = context;
     }
 }

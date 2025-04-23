@@ -10,5 +10,8 @@ namespace Repository.Repositories
 {
     public class PlayerRepository : GenericRepository<Player>
     {
+        public PlayerRepository() { }
+
+        public PlayerRepository(SWP_KahootContext context) => _context = context;
     }
 }

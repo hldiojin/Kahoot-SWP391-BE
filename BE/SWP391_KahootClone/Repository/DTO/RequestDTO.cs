@@ -43,6 +43,7 @@ namespace Repository.DTO
             public string Role { get; set; }
             public string? AvatarUrl { get; set; }
             public bool IsActive { get; set; }
+            public string Status { get; set; }
             public DateTime CreatedAt { get; set; }
         }
 

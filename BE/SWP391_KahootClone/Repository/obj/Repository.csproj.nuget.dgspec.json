@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\8\\SWP_391_B3W\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {}
+    "D:\\8\\SWP_391_B3W\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {}
   },
   "projects": {
-    "D:\\8\\SWP_391_B3W\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {
+    "D:\\8\\SWP_391_B3W\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\8\\SWP_391_B3W\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
+        "projectUniqueName": "D:\\8\\SWP_391_B3W\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "D:\\8\\SWP_391_B3W\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
+        "projectPath": "D:\\8\\SWP_391_B3W\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
         "packagesPath": "C:\\Users\\vuhuu\\.nuget\\packages\\",
-        "outputPath": "D:\\8\\SWP_391_B3W\\BE\\SWP391_KahootClone\\Repository\\obj\\",
+        "outputPath": "D:\\8\\SWP_391_B3W\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vuhuu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,6 +46,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[14.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.5, )"

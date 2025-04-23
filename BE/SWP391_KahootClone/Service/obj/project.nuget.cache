@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "i3xQ93mOeJw=",
+  "dgSpecHash": "6lA/Q7x6a54=",
   "success": true,
-  "projectFilePath": "D:\\8\\SWP_391_B3W\\BE\\SWP391_KahootClone\\Service\\Service.csproj",
+  "projectFilePath": "D:\\8\\SWP_391_B3W\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\vuhuu\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\vuhuu\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\vuhuu\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.3.0\\microsoft.aspnetcore.http.abstractions.2.3.0.nupkg.sha512",
+    "C:\\Users\\vuhuu\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.3.0\\microsoft.aspnetcore.http.features.2.3.0.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.5\\microsoft.data.sqlclient.5.1.5.nupkg.sha512",

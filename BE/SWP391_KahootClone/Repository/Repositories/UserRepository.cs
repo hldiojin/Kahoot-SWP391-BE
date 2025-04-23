@@ -11,6 +11,9 @@ namespace Repository.Repositories
 {
     public class UserRepository : GenericRepository<User>
     {
+        public UserRepository() { }
+
+        public UserRepository(SWP_KahootContext context) => _context = context;
         public async Task<User> GetUserAccount(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
@@ -20,6 +23,25 @@ namespace Repository.Repositories
                 .FirstOrDefaultAsync(u => u.Username == username && u.PasswordHash == password);
 
             return userAccount;
+        }
+
+
+        public async Task<User> GetUserByCurrentId(int userID)
+        {
+            if (userID <= 0) // Corrected null check and added check for non-positive ID
+            {
+                return null; // Or throw an ArgumentException("User ID cannot be null or zero.");
+            }
+
+            var userAccount = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == userID); // Corrected the lambda expression
+
+            return userAccount;
+        }
+
+        public async Task<bool> ExistsByNameAsync(string userName)
+        {
+            return await _context.Users.AnyAsync(u => u.Username.ToLower() == userName.ToLower());
         }
     }
     }
