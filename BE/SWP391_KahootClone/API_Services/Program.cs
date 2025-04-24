@@ -11,9 +11,6 @@ using Repository.Mapper;
 using Service.IServices;
 using Service.Service; // Assuming your SWP_KahootContext is in this namespace
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -103,8 +100,6 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
