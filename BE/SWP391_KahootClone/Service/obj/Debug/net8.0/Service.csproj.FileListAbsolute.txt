@@ -14,3 +14,19 @@ D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0
 D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\refint\Service.dll
 D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.pdb
 D:\8\SWP_391_B3W\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\ref\Service.dll
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.csproj.AssemblyReference.cache
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.AssemblyInfoInputs.cache
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.AssemblyInfo.cs
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.csproj.CoreCompileInputs.cache
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.sourcelink.json
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.dll
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\refint\Service.dll
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.pdb
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Service.deps.json
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Service.dll
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Service.pdb
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Repository.dll
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\bin\Debug\net8.0\Repository.pdb
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\Service.csproj.Up2Date
+D:\FPT SE\Kỳ 5\swp-kahoot\Kahoot-SWP391-BE\BE\SWP391_KahootClone\Service\obj\Debug\net8.0\ref\Service.dll

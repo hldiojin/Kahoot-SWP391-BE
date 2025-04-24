@@ -136,8 +136,14 @@ namespace Repository.Base
 
             return entity;
         }
-
-
+        public async Task<bool> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task AddAsync(T entity)
+        {
+            await _context.AddAsync(entity);
+        }
 
     }
 }
