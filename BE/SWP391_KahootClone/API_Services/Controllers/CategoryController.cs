@@ -1,11 +1,11 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Repository.Models;
 using Service.IService;
-using Service.IServices;
-using Service.Service;
+using Service.Service;  // Chỉnh sửa lại từ IServices thành Service vì bạn sử dụng Service ở đây
 namespace API_Services.Controllers
 {
+    [Route("api/categories")] // Thêm route ở đây
+    [ApiController]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _CategoryService;
@@ -13,6 +13,7 @@ namespace API_Services.Controllers
         {
             _CategoryService = categoryService;
         }
+
         /// <summary>
         /// Lấy tất cả danh mục
         /// </summary>
@@ -93,4 +94,3 @@ namespace API_Services.Controllers
         }
     }
 }
-
