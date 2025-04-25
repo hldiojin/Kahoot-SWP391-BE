@@ -72,24 +72,457 @@
     ]
   },
   {
-    "ContainingType": "API_Services.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "API_Services.Controllers.API.Controllers.GameSessionController",
+    "Method": "CreateGameSession",
+    "RelativePath": "api/GameSession",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gameSessionDto",
+        "Type": "Repository.DTO.RequestDTO\u002BGameSessionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.API.Controllers.GameSessionController",
+    "Method": "GetAllGameSessions",
+    "RelativePath": "api/GameSession",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.API.Controllers.GameSessionController",
+    "Method": "GetGameSessionById",
+    "RelativePath": "api/GameSession/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[API_Services.WeatherForecast, API_Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.API.Controllers.GameSessionController",
+    "Method": "UpdateGameSession",
+    "RelativePath": "api/GameSession/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "gameSessionDto",
+        "Type": "Repository.DTO.RequestDTO\u002BGameSessionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.API.Controllers.GameSessionController",
+    "Method": "DeleteGameSession",
+    "RelativePath": "api/GameSession/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerController",
+    "Method": "CreatePlayer",
+    "RelativePath": "api/Player",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "playerDto",
+        "Type": "Repository.DTO.RequestDTO\u002BPlayerDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerController",
+    "Method": "GetAllPlayers",
+    "RelativePath": "api/Player",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerController",
+    "Method": "GetPlayerById",
+    "RelativePath": "api/Player/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerController",
+    "Method": "UpdatePlayer",
+    "RelativePath": "api/Player/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "playerDto",
+        "Type": "Repository.DTO.RequestDTO\u002BPlayerDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerController",
+    "Method": "DeletePlayer",
+    "RelativePath": "api/Player/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerController",
+    "Method": "GetPlayersBySessionId",
+    "RelativePath": "api/Player/Session/{sessionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sessionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerAnswerController",
+    "Method": "CreatePlayerAnswer",
+    "RelativePath": "api/PlayerAnswer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "playerAnswerDto",
+        "Type": "Repository.DTO.RequestDTO\u002BPlayerAnswerDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerAnswerController",
+    "Method": "GetAllPlayerAnswers",
+    "RelativePath": "api/PlayerAnswer",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerAnswerController",
+    "Method": "GetPlayerAnswerById",
+    "RelativePath": "api/PlayerAnswer/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerAnswerController",
+    "Method": "UpdatePlayerAnswer",
+    "RelativePath": "api/PlayerAnswer/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "playerAnswerDto",
+        "Type": "Repository.DTO.RequestDTO\u002BPlayerAnswerDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerAnswerController",
+    "Method": "DeletePlayerAnswer",
+    "RelativePath": "api/PlayerAnswer/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerAnswerController",
+    "Method": "GetPlayerAnswersByPlayerId",
+    "RelativePath": "api/PlayerAnswer/Player/{playerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "playerId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.PlayerAnswerController",
+    "Method": "GetPlayerAnswersByQuestionId",
+    "RelativePath": "api/PlayerAnswer/Question/{questionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuestionController",
+    "Method": "CreateQuestion",
+    "RelativePath": "api/questions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionDto",
+        "Type": "Repository.DTO.RequestDTO\u002BQuestionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuestionController",
+    "Method": "GetQuestionById",
+    "RelativePath": "api/questions/{questionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuestionController",
+    "Method": "UpdateQuestion",
+    "RelativePath": "api/questions/{questionId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "questionDto",
+        "Type": "Repository.DTO.RequestDTO\u002BQuestionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuestionController",
+    "Method": "DeleteQuestion",
+    "RelativePath": "api/questions/{questionId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuestionController",
+    "Method": "GetQuestionsByQuizId",
+    "RelativePath": "api/questions/quiz/{quizId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuizController",
+    "Method": "CreateQuiz",
+    "RelativePath": "api/Quiz",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Repository.DTO.RequestDTO\u002BQuizDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuizController",
+    "Method": "GetListQuiz",
+    "RelativePath": "api/Quiz",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuizController",
+    "Method": "GetQuizById",
+    "RelativePath": "api/Quiz/{quizId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuizController",
+    "Method": "UpdateQuiz",
+    "RelativePath": "api/Quiz/{quizId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Repository.DTO.RequestDTO\u002BQuizDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API_Services.Controllers.QuizController",
+    "Method": "ChangeQuizStatus",
+    "RelativePath": "api/Quiz/{quizId}/status",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Repository.DTO.RequestDTO\u002BQuizDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

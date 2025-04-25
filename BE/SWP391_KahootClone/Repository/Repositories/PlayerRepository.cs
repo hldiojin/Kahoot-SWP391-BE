@@ -1,4 +1,5 @@
-﻿using Repository.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Base;
 using Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,12 @@ namespace Repository.Repositories
         public PlayerRepository() { }
 
         public PlayerRepository(SWP_KahootContext context) => _context = context;
+
+        public async Task<IEnumerable<Player>> GetPlayersBySessionIdAsync(int sessionId)
+        {
+            return await _context.Players
+                .Where(q => q.SessionId == sessionId)
+                .ToListAsync();
+        }
     }
 }

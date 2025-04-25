@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Repository.DTO.RequestDTO;
 
-namespace Service.IServices
+namespace Service.IService
 {
     public interface IAuthService
     {

@@ -1,12 +1,20 @@
-﻿using System;
+﻿using Repository.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Repository.DTO.RequestDTO;
 
 namespace Service.IService
 {
-    internal class IPlayerService
+    public interface IPlayerService
     {
+        Task<ResponseDTO> CreatePlayerAsync(PlayerDTO playerDto);
+        Task<ResponseDTO> GetPlayerByIdAsync(int id);
+        Task<ResponseDTO> GetAllPlayersAsync();
+        Task<ResponseDTO> UpdatePlayerAsync(int id, PlayerDTO playerDto);
+        Task<ResponseDTO> DeletePlayerAsync(int id);
+        Task<ResponseDTO> GetPlayersBySessionIdAsync(int sessionId);
     }
 }

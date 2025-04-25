@@ -9,7 +9,9 @@ using AutoMapper;
 using Repository.Models;
 using Repository.Mapper;
 using Service.IServices;
-using Service.Service; // Assuming your SWP_KahootContext is in this namespace
+using Service.Service;
+using Service.IService;
+using Repository.Repositories; // Assuming your SWP_KahootContext is in this namespace
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,13 +86,28 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddHttpContextAccessor();
+// Register Repository
+builder.Services.AddScoped<QuizRepository>();
+builder.Services.AddScoped<QuestionRepository>();
+builder.Services.AddScoped<GameSessionRepository>();
+builder.Services.AddScoped<PlayerRepository>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<PlayerAnswerRepository>();
 
 // Add AutoMapper
 builder.Services.AddAutoMapper(typeof(UserMapper)); // Register your mapper profile
 
-// Add AuthService
+// Add Services
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IJWTService, JWTService>();
+builder.Services.AddScoped<IQuizService, QuizService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IGameSessionService, GameSessionService>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IPlayerAnswerService, PlayerAnswerService>();
+
+// Register JWTService with Scoped lifetime
+builder.Services.AddScoped<IJWTService, JWTService>(); //  Corrected registration
+
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -100,11 +117,8 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+  app.UseSwagger();
+  app.UseSwaggerUI();
 
 app.UseCors("MyPolicy"); // Enable CORS policy
 

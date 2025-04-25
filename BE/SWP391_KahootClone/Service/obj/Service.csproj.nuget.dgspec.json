@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj": {}
+    "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj": {}
   },
   "projects": {
-    "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {
+    "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
+        "projectUniqueName": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\obj\\",
+        "projectPath": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\vuhuu\\.nuget\\packages\\",
+        "outputPath": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\vuhuu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,7 +23,6 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Users\\hoang\\.nuget\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -98,21 +93,17 @@
         }
       }
     },
-    "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj": {
+    "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj",
+        "projectUniqueName": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj",
         "projectName": "Service",
-        "projectPath": "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\obj\\",
+        "projectPath": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\Service.csproj",
+        "packagesPath": "C:\\Users\\vuhuu\\.nuget\\packages\\",
+        "outputPath": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Service\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\vuhuu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -121,15 +112,14 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Users\\hoang\\.nuget\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\FPT SE\\Kỳ 5\\swp-kahoot\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj"
+              "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {
+                "projectPath": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj"
               }
             }
           }
