@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Repository.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -163,5 +164,37 @@ namespace Repository.DTO
             public DateTime CreatedAt { get; set; }
             public DateTime? PaidAt { get; set; }
         }
+
+    public class ServicePackageList
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+
+        public int DurationDays { get; set; }
+
+        public string Features { get; set; }
+
     }
+
+    public class UserServicePackList
+    {
+        public int Id { get; set; }
+
+        public DateTime ActivatedAt { get; set; }
+
+        public DateTime? ExpiredAt { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public virtual ServicePack ServicePack { get; set; }
+    }
+    public class PayOSLink
+    {
+        public string PayOSUrl { get; set; }
+    }
+}
 

@@ -1,4 +1,5 @@
-﻿using Repository.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Base;
 using Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,16 @@ namespace Repository.Repositories
         public UserServicePackRepository() { }
 
         public UserServicePackRepository(SWP_KahootContext context) => _context = context;
+        public async Task<bool> CheckUserFreePack(int userID)
+        {
+            return await _context.UserServicePacks
+                .AnyAsync(x => x.UserId == userID && x.ServicePackId == 1);
+        }
+
+        public async Task<UserServicePack> GetUserServicePackPremium(int userID)
+        {
+            return await _context.UserServicePacks
+                .FirstOrDefaultAsync(x => x.UserId == userID && x.ServicePackId == 2);
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Repository.DTO
 
         public class LoginRequestDTO
         {
-            public string userName { get; set; }
+            public string email { get; set; }
             public string password { get; set; }
         }
 
@@ -174,5 +174,42 @@ namespace Repository.DTO
             public DateTime CreatedAt { get; set; }
             public DateTime? PaidAt { get; set; }
         }
+
+        public class CreateServicePackRequestDTO
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public decimal Price { get; set; }
+            public int DurationDays { get; set; }
+            public string Features { get; set; }
+        }
+
+        public class CreateUserServicePackRequestDTO
+        {
+
+            public int UserId { get; set; }
+
+            public int ServicePackId { get; set; }
+        }
+        public class CreatePaymentByPayOSRequestDTO
+        {
+            public int UserId { get; set; }
+            public string Username { get; set; }
+            public int ServicePackId { get; set; }
+        }
+        public class PaymentCallbackPayOSRequestDTO
+        {
+            public string Code { get; set; }
+
+            public string Id { get; set; }
+
+            public bool Cancel { get; set; }
+
+            public string Status { get; set; }
+
+            public long OrderCode { get; set; }
+
+        }
+
     }
 }

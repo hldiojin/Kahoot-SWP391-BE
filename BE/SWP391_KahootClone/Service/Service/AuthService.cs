@@ -29,8 +29,8 @@ namespace Service.Service
             try
             {
                 var account = _unitOfWork.UserRepository.GetAll()
-                                .FirstOrDefault(x => x.Username!.ToLower() == request.userName.ToLower()
-                                && x.PasswordHash == request.password);
+                                .FirstOrDefault(x => x.Email!.ToLower() == request.email.ToLower()
+                                && BCrypt.Net.BCrypt.Verify(request.password, x.PasswordHash));
 
                 if (account == null)
                 {

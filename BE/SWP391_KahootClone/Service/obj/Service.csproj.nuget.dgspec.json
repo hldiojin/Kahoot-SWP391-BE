@@ -146,6 +146,10 @@
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
               "version": "[2.3.0, )"
+            },
+            "payOS": {
+              "target": "Package",
+              "version": "[1.0.8, )"
             }
           },
           "imports": [

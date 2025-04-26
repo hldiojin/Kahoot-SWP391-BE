@@ -1,4 +1,5 @@
-﻿using Repository.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Base;
 using Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,9 @@ namespace Repository.Repositories
         public PaymentRepository() { }
 
         public PaymentRepository(SWP_KahootContext context) => _context = context;
+        public async Task<Payment> GetPaymentByPaymentMethod(string paymentMethod)
+        {
+            return await _context.Payments.Where(x => x.PaymentMethod == paymentMethod).FirstOrDefaultAsync();
+        }
     }
 }

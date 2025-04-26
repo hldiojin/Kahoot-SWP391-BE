@@ -1,6 +1,38 @@
-﻿namespace API_Services.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using Service.IService;
+using Service.Service;
+using static Repository.DTO.RequestDTO;
+
+namespace API_Services.Controllers
 {
-    public class ServicePackController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ServicePackController : ControllerBase
     {
+        private readonly IServicePackService _servicePackService;
+
+        public ServicePackController(IServicePackService servicePackService)
+        {
+            _servicePackService = servicePackService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateServicePack(CreateServicePackRequestDTO request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await _servicePackService.CreeateServicePack(request);
+            return StatusCode(response.Status, response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetListQuiz()
+        {
+            var response = await _servicePackService.GetServicePackList();
+            return StatusCode(response.Status, response);
+        }
     }
 }

@@ -14,13 +14,13 @@ namespace Repository.Repositories
         public UserRepository() { }
 
         public UserRepository(SWP_KahootContext context) => _context = context;
-        public async Task<User> GetUserAccount(string username, string password)
+        public async Task<User> GetUserAccount(string email, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 return null; // or throw an exception, depending on your requirements
 
             var userAccount = await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == username && u.PasswordHash == password);
+                .FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == password);
 
             return userAccount;
         }

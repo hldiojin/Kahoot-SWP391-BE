@@ -93,7 +93,10 @@ builder.Services.AddScoped<GameSessionRepository>();
 builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PlayerAnswerRepository>();
-
+builder.Services.AddScoped<GroupRepository>();
+builder.Services.AddScoped<ServicePackRepository>();
+builder.Services.AddScoped<UserServicePackRepository>();
+builder.Services.AddScoped<PaymentRepository>();
 // Add AutoMapper
 builder.Services.AddAutoMapper(typeof(UserMapper)); // Register your mapper profile
 
@@ -103,8 +106,11 @@ builder.Services.AddScoped<IQuizService, QuizService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IGameSessionService, GameSessionService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddScoped<IPlayerAnswerService, PlayerAnswerService>();
-
+builder.Services.AddScoped<IServicePackService, ServicePackService>();
+builder.Services.AddScoped<IUserServicePackService, UserServicePackService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 // Register JWTService with Scoped lifetime
 builder.Services.AddScoped<IJWTService, JWTService>(); //  Corrected registration
 

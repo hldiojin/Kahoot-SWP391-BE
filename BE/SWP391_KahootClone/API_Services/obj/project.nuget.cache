@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "yuJSb3VWRCk=",
+  "dgSpecHash": "li2+1Ix2phY=",
   "success": true,
   "projectFilePath": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\API_Services\\API_Services.csproj",
   "expectedPackageFiles": [
@@ -60,8 +60,9 @@
     "C:\\Users\\vuhuu\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.6\\microsoft.visualstudio.azure.containers.tools.targets.1.19.6.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
-    "C:\\Users\\vuhuu\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\vuhuu\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\vuhuu\\.nuget\\packages\\payos\\1.0.8\\payos.1.0.8.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\vuhuu\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",

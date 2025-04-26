@@ -9,7 +9,7 @@ namespace Repository.Mapper
         public UserMapper()
         {
             CreateMap<LoginRequestDTO, UserDTO>()
-                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.userName))
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.email))
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.password))
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Email, opt => opt.Ignore())
@@ -30,7 +30,7 @@ namespace Repository.Mapper
 
             // Assuming you might want to map from UserDTO back to other DTOs or entities
             CreateMap<UserDTO, LoginRequestDTO>()
-                .ForMember(dest => dest.userName, opt => opt.MapFrom(src => src.Username))
+                .ForMember(dest => dest.email, opt => opt.MapFrom(src => src.Username))
                 .ForMember(dest => dest.password, opt => opt.MapFrom(src => src.Password));
 
             CreateMap<UserDTO, RegisterRequestDTO>()

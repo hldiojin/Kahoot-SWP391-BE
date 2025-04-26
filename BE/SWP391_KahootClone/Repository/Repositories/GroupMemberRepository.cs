@@ -13,5 +13,8 @@ namespace Repository.Repositories
         public GroupMemberRepository() { }
 
         public GroupMemberRepository(SWP_KahootContext context) => _context = context;
+
+       
+
     }
 }
