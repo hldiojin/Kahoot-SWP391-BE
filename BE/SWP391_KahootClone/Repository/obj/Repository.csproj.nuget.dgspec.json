@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {}
+    "D:\\FPT SE\\Kỳ 5\\Kahoot-swp\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {}
   },
   "projects": {
-    "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {
+    "D:\\FPT SE\\Kỳ 5\\Kahoot-swp\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
+        "projectUniqueName": "D:\\FPT SE\\Kỳ 5\\Kahoot-swp\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\vuhuu\\.nuget\\packages\\",
-        "outputPath": "D:\\8\\SWP_391_B3W\\BE\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\obj\\",
+        "projectPath": "D:\\FPT SE\\Kỳ 5\\Kahoot-swp\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
+        "outputPath": "D:\\FPT SE\\Kỳ 5\\Kahoot-swp\\Kahoot-SWP391-BE\\BE\\SWP391_KahootClone\\Repository\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\vuhuu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -23,6 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\hoang\\.nuget\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
