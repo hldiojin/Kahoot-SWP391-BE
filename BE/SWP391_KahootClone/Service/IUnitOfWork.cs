@@ -13,7 +13,6 @@ namespace Service
         QuizRepository QuizRepository { get; }
         CategoryRepository CategoryRepository { get; }
         QuestionRepository QuestionRepository { get; }
-        GameSessionRepository GameSessionRepository { get; }
         PlayerRepository PlayerRepository { get; }
         PlayerAnswerRepository PlayerAnswerRepository { get; }
         GroupRepository GroupRepository { get; }

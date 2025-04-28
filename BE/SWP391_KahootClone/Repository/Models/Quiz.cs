@@ -25,11 +25,17 @@ public partial class Quiz
 
     public DateTime CreatedAt { get; set; }
 
+    public int? MaxPlayer { get; set; }
+
+    public int? MinPlayer { get; set; }
+
+    public bool? Favorite { get; set; }
+
+    public string GameMode { get; set; }
+
     public virtual Category Category { get; set; }
 
     public virtual User CreatedByNavigation { get; set; }
-
-    public virtual ICollection<GameSession> GameSessions { get; set; } = new List<GameSession>();
 
     public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
 }

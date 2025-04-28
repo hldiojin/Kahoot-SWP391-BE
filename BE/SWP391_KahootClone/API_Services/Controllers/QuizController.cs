@@ -25,7 +25,7 @@ namespace API_Services.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateQuiz([FromBody] QuizDTO request)
+        public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizDTO request)
         {
             var response = await _quizService.CreateQuizAsync(request);
             return StatusCode(response.Status, response);
@@ -50,6 +50,26 @@ namespace API_Services.Controllers
         {
             var response = await _quizService.UpdateQuizAsync(request, quizId);
             return StatusCode(response.Status, response);
+        }
+        [HttpGet("MySets/{userId}")]
+        public async Task<IActionResult> MySets(int userId)
+        {
+            var response = await _quizService.GetByUserId(userId);
+            return StatusCode(response.Status, response);
+        }
+        [HttpGet("check-quiz-code/{quizCode}")]
+        public async Task<IActionResult> CheckQuizCode(int quizCode)
+        {
+            bool exists = await _quizService.checkQuizCode(quizCode);
+
+            if (exists)
+            {
+                return Ok(new { message = "Quiz code is valid." });
+            }
+            else
+            {
+                return NotFound(new { message = "Quiz code not found." });
+            }
         }
     }
 

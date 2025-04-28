@@ -1,4 +1,5 @@
-﻿using Repository.Models;
+﻿using Repository.DBContext;
+using Repository.Models;
 using Repository.Repositories;
 
 namespace Service
@@ -10,7 +11,7 @@ namespace Service
         private QuizRepository _quizRepository;
         private CategoryRepository _categoryRepository;
         private QuestionRepository _questionRepository;
-        private GameSessionRepository _gameSessionRepository;
+       
         private PlayerRepository _playerRepository;
         private PlayerAnswerRepository _playerAnswerRepository;
         private GroupRepository _groupRepository;
@@ -44,11 +45,7 @@ namespace Service
             get => _questionRepository ??= new QuestionRepository(_context);
         }
 
-        public GameSessionRepository GameSessionRepository
-        {
-            get => _gameSessionRepository ??= new GameSessionRepository(_context);
-        }
-
+      
         public PlayerRepository PlayerRepository
         {
             get => _playerRepository ??= new PlayerRepository(_context);

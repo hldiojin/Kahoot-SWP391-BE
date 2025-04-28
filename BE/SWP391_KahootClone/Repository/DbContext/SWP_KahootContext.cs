@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Repository.Models;
 
-namespace Repository.Models;
+namespace Repository.DBContext;
 
 public partial class SWP_KahootContext : DbContext
 {
@@ -33,8 +34,6 @@ public partial class SWP_KahootContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
-    public virtual DbSet<GameSession> GameSessions { get; set; }
-
     public virtual DbSet<Group> Groups { get; set; }
 
     public virtual DbSet<GroupMember> GroupMembers { get; set; }
@@ -59,7 +58,7 @@ public partial class SWP_KahootContext : DbContext
     {
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Category__3213E83FAAAB4EB7");
+            entity.HasKey(e => e.Id).HasName("PK__Category__3213E83F88D0A8D8");
 
             entity.ToTable("Category");
 
@@ -74,55 +73,9 @@ public partial class SWP_KahootContext : DbContext
                 .HasColumnName("name");
         });
 
-        modelBuilder.Entity<GameSession>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__GameSess__3213E83FBC987A7D");
-
-            entity.ToTable("GameSession");
-
-            entity.HasIndex(e => e.PinCode, "UQ__GameSess__953E01E91D9DFE52").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.EndedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("ended_at");
-            entity.Property(e => e.GameType)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("game_type");
-            entity.Property(e => e.HostId).HasColumnName("host_id");
-            entity.Property(e => e.MaxPlayer).HasColumnName("max_player");
-            entity.Property(e => e.MinPlayer).HasColumnName("min_player");
-            entity.Property(e => e.PinCode)
-                .IsRequired()
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("pin_code");
-            entity.Property(e => e.QuizId).HasColumnName("quiz_id");
-            entity.Property(e => e.StartedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("started_at");
-            entity.Property(e => e.Status)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("status");
-
-            entity.HasOne(d => d.Host).WithMany(p => p.GameSessions)
-                .HasForeignKey(d => d.HostId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GameSession_User");
-
-            entity.HasOne(d => d.Quiz).WithMany(p => p.GameSessions)
-                .HasForeignKey(d => d.QuizId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GameSession_Quiz");
-        });
-
         modelBuilder.Entity<Group>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Group__3213E83F0DEC2973");
+            entity.HasKey(e => e.Id).HasName("PK__Group__3213E83F717B8390");
 
             entity.ToTable("Group");
 
@@ -152,12 +105,12 @@ public partial class SWP_KahootContext : DbContext
 
         modelBuilder.Entity<GroupMember>(entity =>
         {
-            entity.HasKey(e => new { e.GroupId, e.UserId });
+            entity.HasKey(e => new { e.GroupId, e.PlayerId }).HasName("PK__GroupMem__013A348004C359F9");
 
             entity.ToTable("GroupMember");
 
             entity.Property(e => e.GroupId).HasColumnName("group_id");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.JoinedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -175,15 +128,20 @@ public partial class SWP_KahootContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GroupMember_Group");
 
-            entity.HasOne(d => d.User).WithMany(p => p.GroupMembers)
-                .HasForeignKey(d => d.UserId)
+            entity.HasOne(d => d.Player).WithMany(p => p.GroupMembers)
+                .HasForeignKey(d => d.PlayerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_GroupMember_Player");
+
+            entity.HasOne(d => d.PlayerNavigation).WithMany(p => p.GroupMembers)
+                .HasForeignKey(d => d.PlayerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GroupMember_User");
         });
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Payment__3213E83F64216F6E");
+            entity.HasKey(e => e.Id).HasName("PK__Payment__3213E83FDB240234");
 
             entity.ToTable("Payment");
 
@@ -224,7 +182,7 @@ public partial class SWP_KahootContext : DbContext
 
         modelBuilder.Entity<Player>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Player__3213E83FCE371AEB");
+            entity.HasKey(e => e.Id).HasName("PK__Player__3213E83F9E5DACB8");
 
             entity.ToTable("Player");
 
@@ -238,23 +196,12 @@ public partial class SWP_KahootContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("nickname");
-            entity.Property(e => e.PlayerCode).HasColumnName("player_code");
             entity.Property(e => e.Score).HasColumnName("score");
-            entity.Property(e => e.SessionId).HasColumnName("session_id");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.Session).WithMany(p => p.Players)
-                .HasForeignKey(d => d.SessionId)
-                .HasConstraintName("FK_Player_GameSession");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Players)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_Player_User");
         });
 
         modelBuilder.Entity<PlayerAnswer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__PlayerAn__3213E83F6830BFB8");
+            entity.HasKey(e => e.Id).HasName("PK__PlayerAn__3213E83FBF9D73F3");
 
             entity.ToTable("PlayerAnswer");
 
@@ -285,7 +232,7 @@ public partial class SWP_KahootContext : DbContext
 
         modelBuilder.Entity<Question>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Question__3213E83F836E0BC7");
+            entity.HasKey(e => e.Id).HasName("PK__Question__3213E83FF23C87DE");
 
             entity.ToTable("Question");
 
@@ -333,7 +280,7 @@ public partial class SWP_KahootContext : DbContext
 
         modelBuilder.Entity<Quiz>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Quiz__3213E83FD5B1E604");
+            entity.HasKey(e => e.Id).HasName("PK__Quiz__3213E83FBACE4896");
 
             entity.ToTable("Quiz");
 
@@ -347,6 +294,10 @@ public partial class SWP_KahootContext : DbContext
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
+            entity.Property(e => e.GameMode)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("gameMode");
             entity.Property(e => e.IsPublic)
                 .HasDefaultValue(true)
                 .HasColumnName("is_public");
@@ -374,7 +325,7 @@ public partial class SWP_KahootContext : DbContext
 
         modelBuilder.Entity<ServicePack>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ServiceP__3213E83F09C93F7C");
+            entity.HasKey(e => e.Id).HasName("PK__ServiceP__3213E83FC1B69F21");
 
             entity.ToTable("ServicePack");
 
@@ -402,7 +353,7 @@ public partial class SWP_KahootContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3213E83FCB14010C");
+            entity.HasKey(e => e.Id).HasName("PK__User__3213E83F7B9E9B6B");
 
             entity.ToTable("User");
 
@@ -424,9 +375,7 @@ public partial class SWP_KahootContext : DbContext
                 .HasDefaultValue(true)
                 .HasColumnName("is_active");
             entity.Property(e => e.PasswordHash)
-                .IsRequired()
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("password_hash");
             entity.Property(e => e.Role)
                 .IsRequired()
@@ -438,12 +387,11 @@ public partial class SWP_KahootContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("username");
-
         });
 
         modelBuilder.Entity<UserServicePack>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__UserServ__3213E83F77436E82");
+            entity.HasKey(e => e.Id).HasName("PK__UserServ__3213E83F290DCCE0");
 
             entity.ToTable("UserServicePack");
 

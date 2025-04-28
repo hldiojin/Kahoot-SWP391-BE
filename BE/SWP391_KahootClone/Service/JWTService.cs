@@ -19,6 +19,7 @@ namespace Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly HashSet<string> _invalidatedTokens = new HashSet<string>();
         public JWTService(IUnitOfWork unitOfWork, IConfiguration config, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
@@ -98,6 +99,10 @@ namespace Service
             }
 
             return user;
+        }
+        public void InvalidateToken(string token)
+        {
+            _invalidatedTokens.Add(token);
         }
     }
 }

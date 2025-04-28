@@ -37,20 +37,26 @@ namespace Repository.DTO
             // Note: Password is excluded for security
         }
 
-        public class QuizResponseDTO
-        {
-            public int Id { get; set; }
-            public string Title { get; set; }
-            public int QuizCode { get; set; }
-            public string? Description { get; set; }
-            public int CreatedBy { get; set; }
-            public int CategoryId { get; set; }
-            public bool IsPublic { get; set; }
-            public string? ThumbnailUrl { get; set; }
-            public DateTime CreatedAt { get; set; }
-        }
+    public class QuizResponseDTO
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public int QuizCode { get; set; }
+        public string? Description { get; set; }
+        public int CreatedBy { get; set; }
+        public int CategoryId { get; set; }
+        public bool IsPublic { get; set; }
+        public string? ThumbnailUrl { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public class CategoryResponseDTO
+        public int? MaxPlayer { get; set; }
+        public int? MinPlayer { get; set; }
+        public bool? Favorite { get; set; }
+        public string? GameMode { get; set; }
+    }
+
+
+    public class CategoryResponseDTO
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -96,7 +102,7 @@ namespace Repository.DTO
             public int PlayerCode { get; set; }
             public string? AvatarUrl { get; set; }
             public int Score { get; set; }
-            public int? SessionId { get; set; }
+         
         }
 
         public class PlayerAnswerResponseDTO

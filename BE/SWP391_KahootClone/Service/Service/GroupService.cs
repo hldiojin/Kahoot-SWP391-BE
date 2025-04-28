@@ -121,6 +121,7 @@ namespace Service.Service // Correct namespace
             }
         }
 
+
         private GroupDTO MapGroupToDto(Group group)
         {
             return new GroupDTO

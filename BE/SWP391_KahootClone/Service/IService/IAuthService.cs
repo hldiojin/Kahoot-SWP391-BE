@@ -1,4 +1,5 @@
 ﻿using Repository.DTO;
+using Repository.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,8 @@ namespace Service.IService
     {
         Task<ResponseDTO> Login(LoginRequestDTO request);
         Task<ResponseDTO> Register(RegisterRequestDTO request);
+
+        Task<User> GetCurrentUserAsync();
+        Task<ResponseDTO> LogoutAsync();
     }
 }

@@ -15,13 +15,13 @@ namespace Service.Service
     {
         private readonly PlayerRepository _playerRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly GameSessionRepository _gameSessionRepository; // Inject GameSessionRepository
+        // Inject GameSessionRepository
 
-        public PlayerService(PlayerRepository playerRepository, IUnitOfWork unitOfWork, GameSessionRepository gameSessionRepository)
+        public PlayerService(PlayerRepository playerRepository, IUnitOfWork unitOfWork)
         {
             _playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _gameSessionRepository = gameSessionRepository ?? throw new ArgumentNullException(nameof(gameSessionRepository)); // Initialize
+            
         }
 
 
@@ -29,24 +29,15 @@ namespace Service.Service
         public async Task<ResponseDTO> CreatePlayerAsync(PlayerDTO playerDto)
         {
             //  Validate SessionId
-            if (playerDto.SessionId.HasValue)
-            {
-                var sessionExists = await _gameSessionRepository.GetByIdAsync(playerDto.SessionId.Value);
-                if (sessionExists == null)
-                {
-                    return new ResponseDTO(400, "Invalid SessionId");
-                }
-            }
+            
 
             // Map DTO to Model
             var player = new Player
             {
-                UserId = playerDto.UserId,
+                
                 Nickname = playerDto.Nickname,
-                PlayerCode = playerDto.PlayerCode,
                 AvatarUrl = playerDto.AvatarUrl,
-                Score = playerDto.Score,
-                SessionId = playerDto.SessionId
+                Score = playerDto.Score,    
             };
 
             try
@@ -76,12 +67,12 @@ namespace Service.Service
             var playerDto = new PlayerDTO
             {
                 Id = player.Id,
-                UserId = player.UserId,
+               
                 Nickname = player.Nickname,
-                PlayerCode = player.PlayerCode,
+       
                 AvatarUrl = player.AvatarUrl,
                 Score = player.Score,
-                SessionId = player.SessionId
+               
             };
 
             return new ResponseDTO(200, "Player retrieved successfully", playerDto);
@@ -102,12 +93,12 @@ namespace Service.Service
                 playerDtos.Add(new PlayerDTO
                 {
                     Id = player.Id,
-                    UserId = player.UserId,
+                  
                     Nickname = player.Nickname,
-                    PlayerCode = player.PlayerCode,
+                   
                     AvatarUrl = player.AvatarUrl,
                     Score = player.Score,
-                    SessionId = player.SessionId
+                    
                 });
             }
             return new ResponseDTO(200, "Players retrieved successfully", playerDtos);
@@ -121,23 +112,16 @@ namespace Service.Service
                 return new ResponseDTO(404, "Player not found");
             }
 
-            // Validate SessionId
-            if (playerDto.SessionId.HasValue)
-            {
-                var sessionExists = await _gameSessionRepository.GetByIdAsync(playerDto.SessionId.Value);
-                if (sessionExists == null)
-                {
-                    return new ResponseDTO(400, "Invalid SessionId");
-                }
-            }
+           
+            
 
             // Update the properties
-            existingPlayer.UserId = playerDto.UserId;
+            
             existingPlayer.Nickname = playerDto.Nickname;
-            existingPlayer.PlayerCode = playerDto.PlayerCode;
+           
             existingPlayer.AvatarUrl = playerDto.AvatarUrl;
             existingPlayer.Score = playerDto.Score;
-            existingPlayer.SessionId = playerDto.SessionId;
+            
 
             try
             {
@@ -174,27 +158,6 @@ namespace Service.Service
             }
         }
 
-        public async Task<ResponseDTO> GetPlayersBySessionIdAsync(int sessionId)
-        {
-            var players = await _playerRepository.GetPlayersBySessionIdAsync(sessionId);
-            if (players == null || !players.Any())
-            {
-                return new ResponseDTO(200, "No players found for this session.", new List<PlayerDTO>());
-            }
-
-            // Map Player entities to PlayerDTOs
-            var playerDtos = players.Select(player => new PlayerDTO
-            {
-                Id = player.Id,
-                UserId = player.UserId,
-                Nickname = player.Nickname,
-                PlayerCode = player.PlayerCode,
-                AvatarUrl = player.AvatarUrl,
-                Score = player.Score,
-                SessionId = player.SessionId,
-            }).ToList();
-
-            return new ResponseDTO(200, "Players retrieved successfully.", playerDtos);
-        }
+     
     }
 }

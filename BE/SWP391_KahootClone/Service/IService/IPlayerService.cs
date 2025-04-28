@@ -15,6 +15,6 @@ namespace Service.IService
         Task<ResponseDTO> GetAllPlayersAsync();
         Task<ResponseDTO> UpdatePlayerAsync(int id, PlayerDTO playerDto);
         Task<ResponseDTO> DeletePlayerAsync(int id);
-        Task<ResponseDTO> GetPlayersBySessionIdAsync(int sessionId);
+       
     }
 }

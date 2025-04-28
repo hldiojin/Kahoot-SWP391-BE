@@ -15,5 +15,8 @@ namespace Service.IService
         Task<ResponseDTO> AddGroupMemberAsync(GroupMemberDTO groupMemberDto);
         Task<ResponseDTO> UpdateGroupMemberAsync(int groupId, int userId, GroupMemberDTO groupMemberDto); // Composite Key
         Task<ResponseDTO> DeleteGroupMemberAsync(int groupId, int userId); // Composite Key
+        Task<ResponseDTO> SelectGroup(CreateGroupMemberDTO dto);
+        Task<ResponseDTO> GetGroupMemberByGroupId(int groupId);
+        Task<ResponseDTO> GetGroupMemberByPlayerId(int playerId);
     }
 }

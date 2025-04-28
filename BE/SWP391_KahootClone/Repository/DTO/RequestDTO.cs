@@ -45,6 +45,8 @@ namespace Repository.DTO
             public bool IsActive { get; set; }
             public string Status { get; set; }
             public DateTime CreatedAt { get; set; }
+
+
         }
 
         public class QuizDTO
@@ -58,6 +60,25 @@ namespace Repository.DTO
             public bool IsPublic { get; set; }
             public string? ThumbnailUrl { get; set; }
             public DateTime CreatedAt { get; set; }
+            public int? MaxPlayer { get; set; }
+            public int? MinPlayer { get; set; }
+            public bool? Favorite { get; set; }
+            public string? GameMode { get; set; }
+        }
+
+        public class CreateQuizDTO
+        {
+            
+            public string Title { get; set; }
+            public string? Description { get; set; }
+            public int CreatedBy { get; set; }
+            public int CategoryId { get; set; }
+            public string? ThumbnailUrl { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public int? MaxPlayer { get; set; }
+            public int? MinPlayer { get; set; }
+            public bool? Favorite { get; set; }
+            public string? GameMode { get; set; }
         }
 
         public class CategoryDTO
@@ -97,18 +118,27 @@ namespace Repository.DTO
             public DateTime? StartedAt { get; set; }
             public DateTime? EndedAt { get; set; }
         }
+        public class CreateGameSessionDTO
+        {
+            public int Id { get; set; }
 
+            public int HostId { get; set; }
+            
+            public string GameType { get; set; }
+            
+            public int MinPlayer { get; set; }
+            public int MaxPlayer { get; set; }
+            public DateTime? StartedAt { get; set; }
+            public DateTime? EndedAt { get; set; }
+        }
         public class PlayerDTO
         {
             public int Id { get; set; }
-            public int? UserId { get; set; }
             public string Nickname { get; set; }
-            public int PlayerCode { get; set; }
-            public string? AvatarUrl { get; set; }
+            public string AvatarUrl { get; set; }
             public int Score { get; set; }
-            public int? SessionId { get; set; }
+            
         }
-
         public class PlayerAnswerDTO
         {
             public int Id { get; set; }
@@ -130,18 +160,27 @@ namespace Repository.DTO
             public int TotalPoint { get; set; }
             public int CreatedBy { get; set; }
             public DateTime CreatedAt { get; set; }
+
+
+
         }
 
         public class GroupMemberDTO
         {
             public int GroupId { get; set; }
-            public int UserId { get; set; }
+            public int PlayerId { get; set; }
             public int Rank { get; set; }
             public int TotalScore { get; set; }
             public DateTime JoinedAt { get; set; }
             public string Status { get; set; }
-        }
 
+        }
+        public class CreateGroupMemberDTO
+        {
+            public int GroupId { get; set; }
+            public int PlayerId { get; set; }
+          
+        }
         public class ServicePackDTO
         {
             public int Id { get; set; }

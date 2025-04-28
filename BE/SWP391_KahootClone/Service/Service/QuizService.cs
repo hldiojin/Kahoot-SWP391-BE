@@ -5,6 +5,7 @@ using Service.IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static Repository.DTO.RequestDTO;
 
@@ -27,7 +28,7 @@ public class QuizService : IQuizService
                 return new ResponseDTO(404, "Quiz not found.");
             }
 
-            existingQuiz.IsPublic = request.IsPublic; // Assuming you only want to change the IsPublic status
+            existingQuiz.IsPublic = request.IsPublic;
             await _quizRepository.UpdateAsync(existingQuiz);
 
             return new ResponseDTO(200, "Quiz status updated successfully.", new QuizResponseDTO
@@ -40,7 +41,11 @@ public class QuizService : IQuizService
                 CategoryId = existingQuiz.CategoryId,
                 IsPublic = existingQuiz.IsPublic,
                 ThumbnailUrl = existingQuiz.ThumbnailUrl,
-                CreatedAt = existingQuiz.CreatedAt
+                CreatedAt = existingQuiz.CreatedAt,
+                MaxPlayer = existingQuiz.MaxPlayer, // Include new properties
+                MinPlayer = existingQuiz.MinPlayer,
+                Favorite = existingQuiz.Favorite,
+                GameMode = existingQuiz.GameMode
             });
         }
         catch (Exception ex)
@@ -50,21 +55,24 @@ public class QuizService : IQuizService
         }
     }
 
-    public async Task<ResponseDTO> CreateQuizAsync(QuizDTO request)
+    public async Task<ResponseDTO> CreateQuizAsync(CreateQuizDTO request)
     {
         try
         {
-            // Map QuizDTO to your data model (e.g., Quiz entity)
-            var quiz = new Quiz // Assuming you have a Quiz entity
+            var quiz = new Quiz
             {
                 Title = request.Title,
-                QuizCode = request.QuizCode,
+                QuizCode = GenerateSessionQuizCode(),
                 Description = request.Description,
                 CreatedBy = request.CreatedBy,
                 CategoryId = request.CategoryId,
-                IsPublic = request.IsPublic,
+                IsPublic = true,
                 ThumbnailUrl = request.ThumbnailUrl,
-                CreatedAt = DateTime.UtcNow // Set creation timestamp
+                CreatedAt = DateTime.UtcNow,
+                MaxPlayer = request.MaxPlayer, // Include new properties from request
+                MinPlayer = request.MinPlayer,
+                Favorite = request.Favorite,
+                GameMode = request.GameMode
             };
 
             await _quizRepository.CreateAsync(quiz);
@@ -79,13 +87,28 @@ public class QuizService : IQuizService
                 CategoryId = quiz.CategoryId,
                 IsPublic = quiz.IsPublic,
                 ThumbnailUrl = quiz.ThumbnailUrl,
-                CreatedAt = quiz.CreatedAt
+                CreatedAt = quiz.CreatedAt,
+                MaxPlayer = quiz.MaxPlayer, // Include new properties from created entity
+                MinPlayer = quiz.MinPlayer,
+                Favorite = quiz.Favorite,
+                GameMode = quiz.GameMode
             });
         }
         catch (Exception ex)
         {
             // Log the exception
             return new ResponseDTO(500, $"An error occurred while creating quiz: {ex.Message}");
+        }
+    }
+    public int GenerateSessionQuizCode()
+    {
+        using (var rng = RandomNumberGenerator.Create())
+        {
+            byte[] bytes = new byte[4]; // 4 bytes for a full Int32
+            rng.GetBytes(bytes);
+            int randomNumber = Math.Abs(BitConverter.ToInt32(bytes, 0));
+            int pin = randomNumber % 1000000; // ensures it's between 0 and 999999
+            return pin;
         }
     }
 
@@ -104,7 +127,11 @@ public class QuizService : IQuizService
                 CategoryId = q.CategoryId,
                 IsPublic = q.IsPublic,
                 ThumbnailUrl = q.ThumbnailUrl,
-                CreatedAt = q.CreatedAt
+                CreatedAt = q.CreatedAt,
+                MaxPlayer = q.MaxPlayer,  // Include new properties in response
+                MinPlayer = q.MinPlayer,
+                Favorite = q.Favorite,
+                GameMode = q.GameMode
             }).ToList();
 
             return new ResponseDTO(200, "Quizzes retrieved successfully.", quizResponses);
@@ -136,7 +163,11 @@ public class QuizService : IQuizService
                 CategoryId = quiz.CategoryId,
                 IsPublic = quiz.IsPublic,
                 ThumbnailUrl = quiz.ThumbnailUrl,
-                CreatedAt = quiz.CreatedAt
+                CreatedAt = quiz.CreatedAt,
+                MaxPlayer = quiz.MaxPlayer, // Include new properties
+                MinPlayer = quiz.MinPlayer,
+                Favorite = quiz.Favorite,
+                GameMode = quiz.GameMode
             });
         }
         catch (Exception ex)
@@ -156,13 +187,16 @@ public class QuizService : IQuizService
                 return new ResponseDTO(404, "Quiz not found.");
             }
 
-            // Update properties if they are provided in the request
             existingQuiz.Title = request.Title ?? existingQuiz.Title;
             existingQuiz.QuizCode = request.QuizCode;
             existingQuiz.Description = request.Description ?? existingQuiz.Description;
             existingQuiz.CategoryId = request.CategoryId;
             existingQuiz.IsPublic = request.IsPublic;
             existingQuiz.ThumbnailUrl = request.ThumbnailUrl ?? existingQuiz.ThumbnailUrl;
+            existingQuiz.MaxPlayer = request.MaxPlayer ?? existingQuiz.MaxPlayer; // Update new properties
+            existingQuiz.MinPlayer = request.MinPlayer ?? existingQuiz.MinPlayer;
+            existingQuiz.Favorite = request.Favorite ?? existingQuiz.Favorite;
+            existingQuiz.GameMode = request.GameMode ?? existingQuiz.GameMode;
 
             await _quizRepository.UpdateAsync(existingQuiz);
 
@@ -176,7 +210,11 @@ public class QuizService : IQuizService
                 CategoryId = existingQuiz.CategoryId,
                 IsPublic = existingQuiz.IsPublic,
                 ThumbnailUrl = existingQuiz.ThumbnailUrl,
-                CreatedAt = existingQuiz.CreatedAt
+                CreatedAt = existingQuiz.CreatedAt,
+                MaxPlayer = existingQuiz.MaxPlayer, // Include updated properties in response
+                MinPlayer = existingQuiz.MinPlayer,
+                Favorite = existingQuiz.Favorite,
+                GameMode = existingQuiz.GameMode
             });
         }
         catch (Exception ex)
@@ -185,5 +223,42 @@ public class QuizService : IQuizService
             return new ResponseDTO(500, $"An error occurred while updating quiz: {ex.Message}");
         }
     }
-}
+    public async Task<ResponseDTO> GetByUserId(int userId)
+    {
+        try
+        {
+            var quizzes = await _quizRepository.GetMySet(userId);
+            var quizResponses = quizzes.Select(q => new QuizResponseDTO
+            {
+                Id = q.Id,
+                Title = q.Title,
+                QuizCode = q.QuizCode,
+                Description = q.Description,
+                CreatedBy = q.CreatedBy,
+                CategoryId = q.CategoryId,
+                IsPublic = q.IsPublic,
+                ThumbnailUrl = q.ThumbnailUrl,
+                CreatedAt = q.CreatedAt,
+                MaxPlayer = q.MaxPlayer, // Include new properties
+                MinPlayer = q.MinPlayer,
+                Favorite = q.Favorite,
+                GameMode = q.GameMode
+            }).ToList();
 
+            return new ResponseDTO(200, "Quizzes retrieved successfully.", quizResponses);
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            return new ResponseDTO(500, $"An error occurred while retrieving quizzes: {ex.Message}");
+        }
+    }
+
+    public async Task<bool> checkQuizCode(int quizCode)
+    {
+        bool result =await _quizRepository.checkCode(quizCode);
+        return result;
+    }
+
+
+}

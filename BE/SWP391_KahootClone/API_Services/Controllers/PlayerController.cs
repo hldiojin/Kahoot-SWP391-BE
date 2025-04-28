@@ -88,16 +88,7 @@
                 return StatusCode(response.Status, response.Message);
             }
 
-            [HttpGet("Session/{sessionId}")]
-            public async Task<IActionResult> GetPlayersBySessionId(int sessionId)
-            {
-                var response = await _playerService.GetPlayersBySessionIdAsync(sessionId);
-                if (response.Status == 200)
-                {
-                    return Ok(response.Data);
-                }
-                return StatusCode(response.Status, response.Message);
-            }
+           
         }
     }
 

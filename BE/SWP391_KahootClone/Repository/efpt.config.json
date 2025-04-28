@@ -19,10 +19,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[GameSession]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Group]",
          "ObjectType": 0
       },

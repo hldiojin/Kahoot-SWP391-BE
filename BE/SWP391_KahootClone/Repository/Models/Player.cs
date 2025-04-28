@@ -9,21 +9,13 @@ public partial class Player
 {
     public int Id { get; set; }
 
-    public int? UserId { get; set; }
-
     public string Nickname { get; set; }
-
-    public int PlayerCode { get; set; }
 
     public string AvatarUrl { get; set; }
 
     public int Score { get; set; }
 
-    public int? SessionId { get; set; }
+    public virtual ICollection<GroupMember> GroupMembers { get; set; } = new List<GroupMember>();
 
     public virtual ICollection<PlayerAnswer> PlayerAnswers { get; set; } = new List<PlayerAnswer>();
-
-    public virtual GameSession Session { get; set; }
-
-    public virtual User User { get; set; }
 }

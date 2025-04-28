@@ -9,7 +9,7 @@ public partial class GroupMember
 {
     public int GroupId { get; set; }
 
-    public int UserId { get; set; }
+    public int PlayerId { get; set; }
 
     public int Rank { get; set; }
 
@@ -21,5 +21,7 @@ public partial class GroupMember
 
     public virtual Group Group { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual Player Player { get; set; }
+
+    public virtual User PlayerNavigation { get; set; }
 }

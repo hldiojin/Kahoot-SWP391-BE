@@ -21,18 +21,13 @@ public partial class User
 
     public bool IsActive { get; set; }
 
-    
     public DateTime CreatedAt { get; set; }
-
-    public virtual ICollection<GameSession> GameSessions { get; set; } = new List<GameSession>();
 
     public virtual ICollection<GroupMember> GroupMembers { get; set; } = new List<GroupMember>();
 
     public virtual ICollection<Group> Groups { get; set; } = new List<Group>();
 
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
-
-    public virtual ICollection<Player> Players { get; set; } = new List<Player>();
 
     public virtual ICollection<Quiz> Quizzes { get; set; } = new List<Quiz>();
 

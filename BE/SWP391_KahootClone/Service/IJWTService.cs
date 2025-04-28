@@ -30,5 +30,7 @@ namespace Service
         /// </summary>
         /// <returns>Đối tượng người dùng hiện tại.</returns>
         Task<User> GetCurrentUserAsync();
+
+        void InvalidateToken(string token);
     }
 }
