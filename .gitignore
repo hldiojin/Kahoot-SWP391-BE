@@ -401,3 +401,14 @@ FodyWeavers.xsd
 /BE/PhotoFinder/PhotoFinder/appsettings.json
 /BE/PhotoFinder/PhotoFinder/PhotoFinder.csproj
 /BE/PhotoFinder/PhotoFinder/appsettings.json
+# Ignore build output
+bin/
+obj/
+*.pdb
+*.exe
+*.dll
+*.cache
+*.sourcelink.json
+*.GeneratedMSBuildEditorConfig.editorconfig
+*.AssemblyInfo.cs
+*.csproj.FileListAbsolute.txt
