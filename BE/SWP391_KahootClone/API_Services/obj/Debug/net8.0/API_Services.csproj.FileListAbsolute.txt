@@ -376,3 +376,5 @@ D:\FPT SE\Kỳ 5\Kahoot-swp\Kahoot-SWP391-BE\BE\SWP391_KahootClone\API_Services\
 D:\FPT SE\Kỳ 5\Kahoot-swp\Kahoot-SWP391-BE\BE\SWP391_KahootClone\API_Services\obj\Debug\net8.0\API_Services.pdb
 D:\FPT SE\Kỳ 5\Kahoot-swp\Kahoot-SWP391-BE\BE\SWP391_KahootClone\API_Services\obj\Debug\net8.0\API_Services.genruntimeconfig.cache
 D:\FPT SE\Kỳ 5\Kahoot-swp\Kahoot-SWP391-BE\BE\SWP391_KahootClone\API_Services\obj\Debug\net8.0\ref\API_Services.dll
+D:\8\SWP_391_B3W\BE\Kahoot-SWP391-BE\BE\SWP391_KahootClone\API_Services\bin\Debug\net8.0\efpt.config.json
+D:\8\SWP_391_B3W\BE\Kahoot-SWP391-BE\BE\SWP391_KahootClone\API_Services\bin\Debug\net8.0\payos-lib-backend-dotnet.dll
