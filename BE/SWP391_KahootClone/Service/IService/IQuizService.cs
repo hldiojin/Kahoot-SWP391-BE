@@ -17,6 +17,11 @@ namespace Service.IService
         Task<ResponseDTO> UpdateQuizAsync(QuizDTO request, int quizId);
         Task<bool> checkQuizCode(int quizCode);
         Task<ResponseDTO> GetByUserId(int userId);
+        Task<ResponseDTO> GetFavorite(int userId);
+        Task<ResponseDTO> GetQuizByQuizCode(int quizCode);
+        Task<ResponseDTO> FavoriteQuiz(int quizId, int userId);
+
+        Task<ResponseDTO> DeleteQuizAsync(int quizId);
 
     }
 }

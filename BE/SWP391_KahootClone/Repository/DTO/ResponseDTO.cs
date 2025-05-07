@@ -22,8 +22,15 @@ namespace Repository.DTO
 
 
     }
+    public class PagedResult<T>
+    {
+        public List<T> Items { get; set; }
+        public int TotalCount { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
 
-
+        public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
+    }
 
     public class UserResponseDTO
         {
@@ -48,13 +55,28 @@ namespace Repository.DTO
         public bool IsPublic { get; set; }
         public string? ThumbnailUrl { get; set; }
         public DateTime CreatedAt { get; set; }
-
         public int? MaxPlayer { get; set; }
         public int? MinPlayer { get; set; }
         public bool? Favorite { get; set; }
         public string? GameMode { get; set; }
     }
-
+    public class QuizHistoryResponseDTO
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public int QuizCode { get; set; }
+        public string? Description { get; set; }
+        public int CreatedBy { get; set; }
+        public int CategoryId { get; set; }
+        public bool IsPublic { get; set; }
+        public string? ThumbnailUrl { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int? MaxPlayer { get; set; }
+        public int? MinPlayer { get; set; }
+        public bool? Favorite { get; set; }
+        public string? GameMode { get; set; }
+        public int PlayedCount { get; set; }
+    }
 
     public class CategoryResponseDTO
         {
@@ -96,7 +118,7 @@ namespace Repository.DTO
 
         public class PlayerResponseDTO
         {
-            public int Id { get; set; }
+            public int playerId { get; set; }
             public int? UserId { get; set; }
             public string Nickname { get; set; }
             public int PlayerCode { get; set; }
@@ -114,7 +136,9 @@ namespace Repository.DTO
             public bool IsCorrect { get; set; }
             public int ResponseTime { get; set; }
             public string? Answer { get; set; }
-        }
+
+            public int Score { get; set; }
+    }
 
         public class GroupResponseDTO
         {
@@ -201,6 +225,12 @@ namespace Repository.DTO
     public class PayOSLink
     {
         public string PayOSUrl { get; set; }
+    }
+
+    public class GroupScoreResponse
+    {
+        public Dictionary<int, int> PlayerScores { get; set; }
+        public int TotalGroupScore { get; set; }
     }
 }
 

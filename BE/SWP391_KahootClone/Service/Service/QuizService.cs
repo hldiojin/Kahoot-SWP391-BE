@@ -1,4 +1,5 @@
-﻿using Repository.DTO;
+﻿using Azure.Core;
+using Repository.DTO;
 using Repository.Models;
 using Repository.Repositories;
 using Service.IService;
@@ -128,7 +129,7 @@ public class QuizService : IQuizService
                 IsPublic = q.IsPublic,
                 ThumbnailUrl = q.ThumbnailUrl,
                 CreatedAt = q.CreatedAt,
-                MaxPlayer = q.MaxPlayer,  // Include new properties in response
+                MaxPlayer = q.MaxPlayer,  
                 MinPlayer = q.MinPlayer,
                 Favorite = q.Favorite,
                 GameMode = q.GameMode
@@ -256,9 +257,133 @@ public class QuizService : IQuizService
 
     public async Task<bool> checkQuizCode(int quizCode)
     {
-        bool result =await _quizRepository.checkCode(quizCode);
+        bool result = await _quizRepository.checkCode(quizCode);
         return result;
     }
+    public async Task<ResponseDTO> GetFavorite(int userId)
+    {
+        try
+        {
+            var quizzes = await _quizRepository.GetFavoriteQUizs(userId);
+            var quizResponses = quizzes.Select(q => new QuizResponseDTO
+            {
+                Id = q.Id,
+                Title = q.Title,
+                QuizCode = q.QuizCode,
+                Description = q.Description,
+                CreatedBy = q.CreatedBy,
+                CategoryId = q.CategoryId,
+                IsPublic = q.IsPublic,
+                ThumbnailUrl = q.ThumbnailUrl,
+                CreatedAt = q.CreatedAt,
+                MaxPlayer = q.MaxPlayer, // Include new properties
+                MinPlayer = q.MinPlayer,
+                Favorite = q.Favorite,
+                GameMode = q.GameMode
+            }).ToList();
 
+            return new ResponseDTO(200, "Quizzes retrieved successfully.", quizResponses);
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            return new ResponseDTO(500, $"An error occurred while retrieving quizzes: {ex.Message}");
+        }
+    }
 
+    public async Task<ResponseDTO> GetQuizByQuizCode(int quizCode)
+    {
+        try
+        {
+            var quiz = await _quizRepository.GetByQuizCode(quizCode);
+            if (quiz == null)
+            {
+                return new ResponseDTO(404, "Quiz not found.");
+            }
+
+            return new ResponseDTO(200, "Quiz retrieved successfully.", new QuizResponseDTO
+            {
+                Id = quiz.Id,
+                Title = quiz.Title,
+                QuizCode = quiz.QuizCode,
+                Description = quiz.Description,
+                CreatedBy = quiz.CreatedBy,
+                CategoryId = quiz.CategoryId,
+                IsPublic = quiz.IsPublic,
+                ThumbnailUrl = quiz.ThumbnailUrl,
+                CreatedAt = quiz.CreatedAt,
+                MaxPlayer = quiz.MaxPlayer,
+                MinPlayer = quiz.MinPlayer,
+                Favorite = quiz.Favorite,
+                GameMode = quiz.GameMode
+            }
+            );
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            return new ResponseDTO(500, $"An error occurred while retrieving quiz: {ex.Message}");
+        }
+    }
+
+    public async Task<ResponseDTO> DeleteQuizAsync(int quizId)
+    {
+        try
+        {
+            var existingQuiz = await _quizRepository.GetByIdAsync(quizId);
+            if (existingQuiz == null)
+            {
+                return new ResponseDTO(404, "Quiz not found.");
+            }
+
+            await _quizRepository.RemoveAsync(existingQuiz); // Assuming RemoveAsync is the correct method for deletion
+            return new ResponseDTO(200, "Quiz deleted successfully.", existingQuiz); // You might not want to return the deleted entity
+        }
+        catch (Exception ex)
+        {
+            // Log the exception properly here (e.g., using ILogger)
+            return new ResponseDTO(500, $"An error occurred while deleting the quiz: {ex.Message}");
+        }
+    }
+
+    public async Task<ResponseDTO> FavoriteQuiz(int quizId, int userId)
+    {
+        try
+        {
+            var existingQuiz = await _quizRepository.GetByIdAsync(quizId);
+            if (existingQuiz == null)
+            {
+                return new ResponseDTO(404, "Quiz not found.");
+            }
+
+           
+            existingQuiz.Favorite = true;
+           
+
+            await _quizRepository.UpdateAsync(existingQuiz);
+
+            return new ResponseDTO(200, "Quiz updated successfully.", new QuizResponseDTO
+            {
+                Id = existingQuiz.Id,
+                Title = existingQuiz.Title,
+                QuizCode = existingQuiz.QuizCode,
+                Description = existingQuiz.Description,
+                CreatedBy = existingQuiz.CreatedBy,
+                CategoryId = existingQuiz.CategoryId,
+                IsPublic = existingQuiz.IsPublic,
+                ThumbnailUrl = existingQuiz.ThumbnailUrl,
+                CreatedAt = existingQuiz.CreatedAt,
+                MaxPlayer = existingQuiz.MaxPlayer, // Include updated properties in response
+                MinPlayer = existingQuiz.MinPlayer,
+                Favorite = existingQuiz.Favorite,
+                GameMode = existingQuiz.GameMode
+            });
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            return new ResponseDTO(500, $"An error occurred while updating quiz: {ex.Message}");
+        }
+    }
 }
+

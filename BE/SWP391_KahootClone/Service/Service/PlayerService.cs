@@ -45,7 +45,7 @@ namespace Service.Service
                 await _playerRepository.CreateAsync(player);
                 await _unitOfWork.SaveChangesAsync();
 
-                playerDto.Id = player.Id; // Update DTO with generated ID
+                playerDto.playerId = player.Id; // Update DTO with generated ID
                 return new ResponseDTO(201, "Player created successfully", playerDto);
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace Service.Service
             // Map Model to DTO
             var playerDto = new PlayerDTO
             {
-                Id = player.Id,
+                playerId = player.Id,
                
                 Nickname = player.Nickname,
        
@@ -92,7 +92,7 @@ namespace Service.Service
             {
                 playerDtos.Add(new PlayerDTO
                 {
-                    Id = player.Id,
+                    playerId = player.Id,
                   
                     Nickname = player.Nickname,
                    

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.IService;
 using Service.Service;
 using static Repository.DTO.RequestDTO;
@@ -7,6 +8,7 @@ namespace API_Services.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ServicePackController : ControllerBase
     {
         private readonly IServicePackService _servicePackService;
@@ -17,6 +19,7 @@ namespace API_Services.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateServicePack(CreateServicePackRequestDTO request)
         {
             if (!ModelState.IsValid)
@@ -32,6 +35,15 @@ namespace API_Services.Controllers
         public async Task<IActionResult> GetListQuiz()
         {
             var response = await _servicePackService.GetServicePackList();
+            return StatusCode(response.Status, response);
+        }
+
+        [HttpPut]
+        [Route("Update/{servicePackId}")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> UpdateServicePack(int servicePackId, [FromBody] CreateServicePackRequestDTO request)
+        {
+            var response = await _servicePackService.Update(request, servicePackId);
             return StatusCode(response.Status, response);
         }
     }

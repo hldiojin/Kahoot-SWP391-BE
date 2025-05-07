@@ -137,13 +137,6 @@ namespace API_Services.Controllers // Adjust the namespace as needed
     }
 
     //  Create a UserDTO to define what data you want to return to the client.
-    public class UserDTO
-    {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        //  Add other properties as needed, but NEVER include PasswordHash or other
-        //  sensitive information.
-    }
+   
 }
 

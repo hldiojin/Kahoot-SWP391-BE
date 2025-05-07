@@ -13,6 +13,7 @@ namespace Service.IService
     {
         Task<ResponseDTO> CreatePaymentByPayOS(CreatePaymentByPayOSRequestDTO request);
         Task<ResponseDTO> PaymentCallbackPayOS(PaymentCallbackPayOSRequestDTO request);
+        Task<ResponseDTO> CancelPayment(int paymentId);
     }
 
 

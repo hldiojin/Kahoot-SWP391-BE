@@ -50,21 +50,122 @@ namespace Service.Service
                 IsCorrect = playerAnswerDto.IsCorrect,
                 ResponseTime = playerAnswerDto.ResponseTime,
                 Answer = playerAnswerDto.Answer
+
             };
 
             try
             {
                 await _playerAnswerRepository.CreateAsync(playerAnswer);
                 await _unitOfWork.SaveChangesAsync();
+                playerAnswerDto.Id = playerAnswer.Id;
+                var player = _unitOfWork.PlayerRepository.GetById(playerAnswer.PlayerId);
+                QuestionDTO question= MapToDTO(questionExists);
+                player.Score += CalculateSoloScore(playerAnswerDto, question); // Update player score based on the answer
 
-                playerAnswerDto.Id = playerAnswer.Id; // Update DTO with generated ID
-                return new ResponseDTO(201, "Player answer created successfully", playerAnswerDto);
+                return new ResponseDTO(201, "Player answer created successfully", player);
             }
             catch (Exception ex)
             {
                 // Log the exception
                 return new ResponseDTO(500, $"Error creating player answer: {ex.Message}");
             }
+        }
+        public int CalculateSoloScore(PlayerAnswerDTO playerAnswer, QuestionDTO question)
+        {
+            // Validate input
+            if (playerAnswer == null)
+            {
+                throw new ArgumentNullException(nameof(playerAnswer), "Player answer cannot be null.");
+            }
+            if (question == null)
+            {
+                throw new ArgumentNullException(nameof(question), "Question cannot be null.");
+            }
+
+            // Initialize score
+            int score = 0;
+
+            // Check if the answer is correct
+            if (playerAnswer.IsCorrect)
+            {
+                score = question.Score; // Award the question's score if correct.
+
+                // Consider time limit and response time.
+                if (question.TimeLimit.HasValue)
+                {
+                    // Calculate a bonus based on how quickly the player answered.
+                    int timeBonus = CalculateTimeBonus(playerAnswer.ResponseTime, question.TimeLimit.Value);
+                    score += timeBonus;
+                }
+            }
+
+            return score;
+        }
+
+
+        private int CalculateTimeBonus(int responseTime, int timeLimit)
+        {
+            if (responseTime <= 0)
+                return 0;
+
+            if (responseTime >= timeLimit)
+                return 0;
+
+            // Linear bonus calculation (can be adjusted)
+            // The faster the response, the higher the bonus.
+            double timeRatio = (double)responseTime / timeLimit;
+            int bonus = (int)((1 - timeRatio) * 20); // Example: Max bonus of 20, decreasing linearly.
+
+            return Math.Max(0, bonus); // Ensure bonus is not negative.
+        }
+
+
+        public (Dictionary<int, int> playerScores, int totalGroupScore) CalculateGroupScore(
+            List<GroupMemberDTO> groupMembers,
+            List<PlayerAnswerDTO> playerAnswers,
+            List<QuestionDTO> questions)
+        {
+            // Validate input
+            if (groupMembers == null)
+            {
+                throw new ArgumentNullException(nameof(groupMembers), "Group members cannot be null.");
+            }
+            if (playerAnswers == null)
+            {
+                throw new ArgumentNullException(nameof(playerAnswers), "Player answers cannot be null.");
+            }
+            if (questions == null)
+            {
+                throw new ArgumentNullException(nameof(questions), "Questions cannot be null.");
+            }
+
+            // Initialize the dictionary to store each player's score.
+            Dictionary<int, int> playerScores = new Dictionary<int, int>();
+            int totalGroupScore = 0;
+
+            // Populate the playerScores dictionary with initial scores of 0 for each member.
+            foreach (var member in groupMembers)
+            {
+                playerScores[member.PlayerId] = 0;
+            }
+
+            // Iterate through each player's answer to calculate scores.
+            foreach (var playerAnswer in playerAnswers)
+            {
+                // Find the corresponding question.
+                QuestionDTO question = questions.FirstOrDefault(q => q.Id == playerAnswer.QuestionId);
+                if (question != null)
+                {
+                    // Calculate the score for the player for this question.
+                    int playerScore = CalculateSoloScore(playerAnswer, question); // Reuse the solo score calculation
+
+                    // Add the score to the player's total.
+                    playerScores[playerAnswer.PlayerId] += playerScore;
+                    totalGroupScore += playerScore; // Accumulate the total group score.
+                }
+                // else:  Question not found.  This might indicate an error, but we'll just skip it.
+            }
+            return (playerScores, totalGroupScore);
         }
 
         public async Task<ResponseDTO> GetPlayerAnswerByIdAsync(int id)
@@ -115,7 +216,7 @@ namespace Service.Service
             }
             return new ResponseDTO(200, "Player answers retrieved successfully", playerAnswerDtos);
         }
-
+       
         public async Task<ResponseDTO> UpdatePlayerAnswerAsync(int id, PlayerAnswerDTO playerAnswerDto)
         {
             var existingPlayerAnswer = await _playerAnswerRepository.GetByIdAsync(id);
@@ -225,6 +326,53 @@ namespace Service.Service
 
             return new ResponseDTO(200, "Player answers retrieved successfully.", playerAnswerDtos);
         }
+
+        public static QuestionDTO MapToDTO(Question question)
+        {
+            if (question == null)
+                return null;
+
+            return new QuestionDTO
+            {
+                Id = question.Id,
+                QuizId = question.QuizId,
+                Text = question.Text, // Changed from QuestionText to Text
+                Type = question.Type,
+                OptionA = question.OptionA,
+                OptionB = question.OptionB,
+                OptionC = question.OptionC,
+                OptionD = question.OptionD,
+                IsCorrect = question.IsCorrect,
+                Score = question.Score,
+                Flag = question.Flag,
+                TimeLimit = question.TimeLimit,
+                Arrange = question.Arrange
+            };
+        }
+
+        public static Question MapToModel(QuestionDTO dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new Question
+            {
+                Id = dto.Id,
+                QuizId = dto.QuizId,
+                Text = dto.Text, // Changed from QuestionText to Text
+                Type = dto.Type,
+                OptionA = dto.OptionA,
+                OptionB = dto.OptionB,
+                OptionC = dto.OptionC,
+                OptionD = dto.OptionD,
+                IsCorrect = dto.IsCorrect,
+                Score = dto.Score,
+                Flag = dto.Flag,
+                TimeLimit = dto.TimeLimit,
+                Arrange = dto.Arrange
+            };
+        }
+
     }
 }
 

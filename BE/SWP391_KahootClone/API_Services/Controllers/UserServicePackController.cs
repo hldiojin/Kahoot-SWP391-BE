@@ -8,6 +8,7 @@ namespace API_Services.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    
     public class UserServicePackController : ControllerBase
     {
         private readonly IUserServicePackService _userServicePackService;
@@ -18,9 +19,9 @@ namespace API_Services.Controllers
             _userServicePackService = userServicePackService;
             _jWTService = jWTService;
         }
-
+         
         [Authorize]
-        [HttpGet]
+        [HttpGet]   
         public async Task<IActionResult> GetUserServicePackListByUserId()
         {
             var user = await _jWTService.GetCurrentUserAsync();

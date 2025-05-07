@@ -90,7 +90,7 @@ builder.Services.AddHttpContextAccessor();
 // Register Repository
 builder.Services.AddScoped<QuizRepository>();
 builder.Services.AddScoped<QuestionRepository>();
-
+builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PlayerAnswerRepository>();
@@ -116,6 +116,8 @@ builder.Services.AddScoped<IUserServicePackService, UserServicePackService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IGroupMemberService, GroupMemberService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ScoreCalculatorService>();
 // Register JWTService with Scoped lifetime
 builder.Services.AddScoped<IJWTService, JWTService>(); //  Corrected registration
 

@@ -10,6 +10,12 @@ namespace Service.IServices
 {
     public interface IUserService
     {
-        Task<ResponseDTO> CreatePaymentByPayOS(CreatePaymentByPayOSRequestDTO request);
+        //Task<ResponseDTO> CreatePaymentByPayOS(CreatePaymentByPayOSRequestDTO request);
+
+        Task<ResponseDTO> CreateUserAsync(UserDTO userDTO);
+        Task<ResponseDTO> UpadteUserAsync(UserDTO userDTO, int userId);
+        Task<bool> RemoveUserAsync(int userId);
+        Task<ResponseDTO> GetByIdAsync(int userId);
+        Task<ResponseDTO> GetAllUserAsync();
     }
 }
