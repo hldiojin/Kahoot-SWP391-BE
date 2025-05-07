@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Repository.DTO;
 using Repository.Models;
 using Service.IService;
 using Service.IServices;
@@ -15,6 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
+using Repository.DTO;
 
 namespace Service.Service
 {
@@ -152,6 +152,8 @@ namespace Service.Service
                 return new ResponseDTO(Const.ERROR_EXCEPTION, $"Error logging out: {ex.Message}");
             }
         }
+
+       
     }
 }
 

@@ -12,7 +12,8 @@ using Service.IServices;
 using Service.Service;
 using Service.IService;
 using Repository.Repositories;
-using Repository.DBContext; // Assuming your SWP_KahootContext is in this namespace
+using Repository.DBContext;
+using Service.SignalR.Server; // Assuming your SWP_KahootContext is in this namespace
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,7 +91,7 @@ builder.Services.AddHttpContextAccessor();
 // Register Repository
 builder.Services.AddScoped<QuizRepository>();
 builder.Services.AddScoped<QuestionRepository>();
-
+builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PlayerAnswerRepository>();
@@ -116,14 +117,21 @@ builder.Services.AddScoped<IUserServicePackService, UserServicePackService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IGroupMemberService, GroupMemberService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ScoreCalculatorService>();
 // Register JWTService with Scoped lifetime
 builder.Services.AddScoped<IJWTService, JWTService>(); //  Corrected registration
+builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<ICommonService, CommonService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 // builder.Services.AddEndpointsApiExplorer(); // Already added above
 // builder.Services.AddSwaggerGen(); // Already added above
+
+//SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -137,5 +145,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<KahootSignalR>("/KahootSignalRServer");
 
 app.Run();

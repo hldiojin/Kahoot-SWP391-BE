@@ -34,5 +34,13 @@ namespace API_Services.Controllers
             var response = await _servicePackService.GetServicePackList();
             return StatusCode(response.Status, response);
         }
+
+        [HttpPut]
+        [Route("Update/{servicePackId}")]
+        public async Task<IActionResult> UpdateServicePack(int servicePackId, [FromBody] CreateServicePackRequestDTO request)
+        {
+            var response = await _servicePackService.Update(request, servicePackId);
+            return StatusCode(response.Status, response);
+        }
     }
 }

@@ -12,6 +12,6 @@ namespace Service.IService
     {
         Task<ResponseDTO> CreeateServicePack(CreateServicePackRequestDTO request);
         Task<ResponseDTO> GetServicePackList();
-
+        Task<ResponseDTO> Update(CreateServicePackRequestDTO request, int servicePackId);
     }
 }

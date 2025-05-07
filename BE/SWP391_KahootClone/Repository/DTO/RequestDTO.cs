@@ -133,10 +133,11 @@ namespace Repository.DTO
         }
         public class PlayerDTO
         {
-            public int Id { get; set; }
+            public int playerId { get; set; }
             public string Nickname { get; set; }
             public string AvatarUrl { get; set; }
             public int Score { get; set; }
+            public int QuizId { get; set; }
             
         }
         public class PlayerAnswerDTO
@@ -174,6 +175,19 @@ namespace Repository.DTO
             public DateTime JoinedAt { get; set; }
             public string Status { get; set; }
 
+        }
+
+        public class SoloScoreRequest
+        {
+            public PlayerAnswerDTO PlayerAnswer { get; set; }
+            public QuestionDTO Question { get; set; }
+        }
+
+        public class GroupScoreRequest
+        {
+            public List<GroupMemberDTO> GroupMembers { get; set; }
+            public List<PlayerAnswerDTO> PlayerAnswers { get; set; }
+            public List<QuestionDTO> Questions { get; set; }
         }
         public class CreateGroupMemberDTO
         {
@@ -249,6 +263,5 @@ namespace Repository.DTO
             public long OrderCode { get; set; }
 
         }
-
     }
 }

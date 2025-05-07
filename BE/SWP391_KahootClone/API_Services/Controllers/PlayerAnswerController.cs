@@ -12,10 +12,11 @@ namespace API_Services.Controllers
     public class PlayerAnswerController : ControllerBase
     {
         private readonly IPlayerAnswerService _playerAnswerService;
-
-        public PlayerAnswerController(IPlayerAnswerService playerAnswerService)
+        private readonly ScoreCalculatorService _scoreCalculator;
+        public PlayerAnswerController(IPlayerAnswerService playerAnswerService, ScoreCalculatorService scoreCalculator)
         {
             _playerAnswerService = playerAnswerService;
+            _scoreCalculator = scoreCalculator;
         }
 
         [HttpPost]
@@ -29,7 +30,7 @@ namespace API_Services.Controllers
             var response = await _playerAnswerService.CreatePlayerAnswerAsync(playerAnswerDto);
             if (response.Status == 201)
             {
-                return CreatedAtAction(nameof(GetPlayerAnswerById), new { id = ((PlayerAnswerDTO)response.Data).Id }, response.Data);
+                return Ok( response.Data);
             }
             return StatusCode(response.Status, response.Message);
         }
@@ -107,6 +108,65 @@ namespace API_Services.Controllers
                 return Ok(response.Data);
             }
             return StatusCode(response.Status, response.Message);
+        }
+
+        [HttpPost("SoloScore")]
+        public ActionResult<int> CalculateSoloScore([FromBody] SoloScoreRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                int score = _scoreCalculator.CalculateSoloScore(request.PlayerAnswer, request.Question);
+                return Ok(score);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message); // Return a 400 Bad Request with the error message
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                return StatusCode(500, "An error occurred while calculating the score: " + ex.Message); // Return 500
+            }
+        }
+
+        /// <summary>
+        /// Calculates the score for a group based on the individual player answers.
+        /// </summary>
+        /// <param name="groupMembers">The members of the group.</param>
+        /// <param name="playerAnswers">The answers given by the players in the group.</param>
+        /// <param name="questions">The questions that were answered.</param>
+        /// <returns>A dictionary of player scores, and the total group score.</returns>
+        [HttpPost("GroupScore")]
+        public ActionResult<GroupScoreResponse> CalculateGroupScore([FromBody] GroupScoreRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                (Dictionary<int, int> playerScores, int totalGroupScore) = _scoreCalculator.CalculateGroupScore(request.GroupMembers, request.PlayerAnswers, request.Questions);
+                var response = new GroupScoreResponse
+                {
+                    PlayerScores = playerScores,
+                    TotalGroupScore = totalGroupScore
+                };
+                return Ok(response);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                return StatusCode(500, "An error occurred while calculating the group score: " + ex.Message);
+            }
         }
     }
 }

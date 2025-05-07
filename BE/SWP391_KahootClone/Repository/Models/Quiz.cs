@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Models;
 
@@ -24,14 +25,17 @@ public partial class Quiz
     public string ThumbnailUrl { get; set; }
 
     public DateTime CreatedAt { get; set; }
+    [Required]
 
     public int? MaxPlayer { get; set; }
-
+    [Required]
     public int? MinPlayer { get; set; }
 
     public bool? Favorite { get; set; }
 
     public string GameMode { get; set; }
+
+    public int NumberOfJoinedPlayers { get; set; } = 0; // default value = 0
 
     public virtual Category Category { get; set; }
 

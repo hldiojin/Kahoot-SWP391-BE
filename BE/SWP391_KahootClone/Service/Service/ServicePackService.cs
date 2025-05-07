@@ -72,5 +72,34 @@ namespace Service.Service
                 return new ResponseDTO(500, $"Error creating game session: {ex.Message}");
             }
         }
+
+        public async Task<ResponseDTO> Update(CreateServicePackRequestDTO request, int servicePackId)
+        {
+            try
+            {
+                var existingServicePack = await _servicePackRepository.GetByIdAsync(servicePackId);
+                if (existingServicePack == null)
+                {
+                    return new ResponseDTO(404, "Service pack not found");
+                }
+
+                // Update the properties
+                existingServicePack.Name = request.Name;
+                existingServicePack.Description = request.Description;
+                existingServicePack.Price = request.Price;
+                existingServicePack.DurationDays = request.DurationDays;
+                existingServicePack.Features = request.Features;
+               
+
+                _servicePackRepository.Update(existingServicePack); //use update instead of add
+                await _unitOfWork.SaveChangesAsync();
+
+                return new ResponseDTO(200, "Service pack updated successfully", existingServicePack);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO(500, $"Error updating service pack: {ex.Message}");
+            }
+        }
     }
 }

@@ -3,11 +3,15 @@ using Service.IService;
 using Repository.DTO; // Make sure this is included
 using Microsoft.AspNetCore.Http;
 using static Repository.DTO.RequestDTO;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 
 namespace API_Services.Controllers
 {
+    [Microsoft.AspNetCore.Mvc.Route("api/categories")]
     [ApiController]
-    [Route("api/categories")]
+   
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -58,6 +62,7 @@ namespace API_Services.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CategoryDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize( Roles = "admin")]
         public async Task<IActionResult> AddCategory([FromBody] CategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
@@ -81,6 +86,7 @@ namespace API_Services.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
@@ -108,6 +114,7 @@ namespace API_Services.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             try

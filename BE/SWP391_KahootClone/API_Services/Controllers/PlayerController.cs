@@ -6,9 +6,9 @@
     using System.Threading.Tasks;
     using Service.IService;
     using static Repository.DTO.RequestDTO;
+    using PlayerDTO = Repository.DTO.RequestDTO.PlayerDTO;
 
-   
-        [ApiController]
+    [ApiController]
         [Route("api/[controller]")]
         public class PlayerController : ControllerBase
         {
@@ -30,7 +30,7 @@
                 var response = await _playerService.CreatePlayerAsync(playerDto);
                 if (response.Status == 201)
                 {
-                    return CreatedAtAction(nameof(GetPlayerById), new { id = ((PlayerDTO)response.Data).Id }, response.Data);
+                    return CreatedAtAction(nameof(GetPlayerById), new { id = ((PlayerDTO)response.Data).playerId }, response.Data);
                 }
                 return StatusCode(response.Status, response.Message);
             }
@@ -64,7 +64,7 @@
                 {
                     return BadRequest(ModelState);
                 }
-                if (id != playerDto.Id)
+                if (id != playerDto.playerId)
                 {
                     return BadRequest("Id in body does not match Id in route.");
                 }

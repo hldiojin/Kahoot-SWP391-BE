@@ -4,6 +4,7 @@ using Service;
 using Service.Service;
 using static Repository.DTO.RequestDTO;
 using Microsoft.AspNetCore.Authorization;
+using Repository.DTO;
 
 namespace API_Services.Controllers
 {
@@ -24,14 +25,20 @@ namespace API_Services.Controllers
         [HttpPost]              //nhap cai id cua pack premium vao = 2
         public async Task<IActionResult> CreatePayment(int servicePackId)
         {
-            var user = await _jWTService.GetCurrentUserAsync();
-            var response = await _paymentService.CreatePaymentByPayOS(new CreatePaymentByPayOSRequestDTO
+            try
             {
-                ServicePackId = servicePackId,
-                Username = user.Username,
-                UserId = user.Id
-            });
-            return StatusCode(response.Status, response);
+                var user = await _jWTService.GetCurrentUserAsync();
+                var response = await _paymentService.CreatePaymentByPayOS(new CreatePaymentByPayOSRequestDTO
+                {
+                    ServicePackId = servicePackId,
+                    Username = user.Username,
+                    UserId = user.Id
+                });
+                return StatusCode(response.Status, response);
+            } catch(Exception ex)
+            {
+                return StatusCode(500, new ResponseDTO(500, ex.Message));
+            }
         }
 
         [HttpGet]
@@ -48,6 +55,13 @@ namespace API_Services.Controllers
             };
             var response = await _paymentService.PaymentCallbackPayOS(request);
             return StatusCode(response.Status, response);
+        }
+
+        [HttpPost("cancel-payment/{paymentId}")]
+        public async Task<IActionResult> CancelPayment(int paymentId)
+        {
+            var response = await _paymentService.CancelPayment(paymentId);
+            return StatusCode((int)response.Status, response);
         }
 
     }
