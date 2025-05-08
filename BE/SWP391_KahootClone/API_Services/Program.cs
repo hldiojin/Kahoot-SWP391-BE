@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore; // Add this using statement
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -12,7 +13,8 @@ using Service.IServices;
 using Service.Service;
 using Service.IService;
 using Repository.Repositories;
-using Repository.DBContext; // Assuming your SWP_KahootContext is in this namespace
+using Repository.DBContext;
+using Service.SignalR.Server; // Assuming your SWP_KahootContext is in this namespace
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -120,6 +122,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ScoreCalculatorService>();
 // Register JWTService with Scoped lifetime
 builder.Services.AddScoped<IJWTService, JWTService>(); //  Corrected registration
+builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<ICommonService, CommonService>();
+
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -127,17 +132,23 @@ builder.Services.AddControllers();
 // builder.Services.AddEndpointsApiExplorer(); // Already added above
 // builder.Services.AddSwaggerGen(); // Already added above
 
+//SignalR
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-  app.UseSwagger();
-  app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("MyPolicy"); // Enable CORS policy
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllers();
+
+app.MapHub<KahootSignalR>("/KahootSignalRServer");
 
 app.Run();

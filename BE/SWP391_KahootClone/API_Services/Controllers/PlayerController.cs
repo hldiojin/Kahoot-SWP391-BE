@@ -6,9 +6,9 @@
     using System.Threading.Tasks;
     using Service.IService;
     using static Repository.DTO.RequestDTO;
+    using PlayerDTO = Repository.DTO.RequestDTO.PlayerDTO;
 
-   
-        [ApiController]
+    [ApiController]
         [Route("api/[controller]")]
         public class PlayerController : ControllerBase
         {

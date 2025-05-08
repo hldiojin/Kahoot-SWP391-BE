@@ -1,4 +1,5 @@
-﻿using Repository.DBContext;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using Repository.DBContext;
 using Repository.Models;
 using Repository.Repositories;
 
@@ -25,6 +26,11 @@ namespace Service
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public IDbContextTransaction BeginTransaction()
+        {
+            
+            return _context.Database.BeginTransaction();
+        }
         public UserRepository UserRepository
         {
             get => _userRepository ??= new UserRepository(_context);

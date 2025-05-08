@@ -14,6 +14,7 @@ public partial class Player
     public string AvatarUrl { get; set; }
 
     public int Score { get; set; }
+    public int QuizId { get; set; }
 
     public virtual ICollection<GroupMember> GroupMembers { get; set; } = new List<GroupMember>();
 

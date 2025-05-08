@@ -243,6 +243,10 @@
               "target": "Package",
               "version": "[2.3.0, )"
             },
+            "Microsoft.AspNetCore.SignalR.Core": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
             "payOS": {
               "target": "Package",
               "version": "[1.0.8, )"

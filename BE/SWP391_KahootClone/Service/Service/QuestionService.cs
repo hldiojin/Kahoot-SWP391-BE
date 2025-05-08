@@ -170,7 +170,7 @@ namespace Service.Service
             }
 
             // Map Question entity to QuestionDTO
-            var questionDtos = questions.Select(question => new QuestionDTO
+            var questionDtos = questions.OrderBy(x => x.Id).Select(question => new QuestionDTO
             {
                 Id = question.Id,
                 QuizId = question.QuizId,

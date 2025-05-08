@@ -71,6 +71,7 @@ namespace Service.Service
                     cancelUrl: domain,
                     returnUrl: domain,
                     buyerName: request.Username);
+
                   
                 var payment = new Payment
                 {
@@ -81,6 +82,7 @@ namespace Service.Service
                     Status = "Pending",
                     CreatedAt = DateTime.Now
                 };
+
 
                 var userPack = new UserServicePack
                 {

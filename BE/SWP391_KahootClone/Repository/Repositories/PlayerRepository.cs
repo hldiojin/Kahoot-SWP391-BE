@@ -16,6 +16,19 @@ namespace Repository.Repositories
 
         public PlayerRepository(SWP_KahootContext context) => _context = context;
 
-       
+        public async Task<Player> GetPlayerByIdAsync(int id)
+        {
+            return await _context.Players.Include(x => x.GroupMembers)
+                                         .ThenInclude(x => x.Group)
+                                         .AsNoTracking()
+                                         .FirstOrDefaultAsync(x => x.Id.Equals(id));
+        }
+
+        public async Task<List<Player>> GetJoinedPlayersAsync(int quizId)
+        {
+            return await _context.Players.Include(x => x.GroupMembers)
+                                         .ThenInclude(x => x.Group)
+                                         .Where(x => x.QuizId.Equals(quizId)).ToListAsync();
+        }
     }
 }

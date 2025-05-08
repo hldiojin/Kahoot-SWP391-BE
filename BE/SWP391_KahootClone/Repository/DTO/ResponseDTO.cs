@@ -232,5 +232,133 @@ namespace Repository.DTO
         public Dictionary<int, int> PlayerScores { get; set; }
         public int TotalGroupScore { get; set; }
     }
+
+
+    public class PlayerDTO
+    {
+        public int Id { get; set; }
+        public string NickName { get; set; }
+        public string AvatarUrl { get; set; }
+        public int? GroupId { get; set; }
+        public string GroupName { get; set; }
+        public string GroupDescription { get; set; }
+
+        public PlayerDTO(int playerId, string nickName, string avatarURL, int? groupId, string groupName, string groupDescription)
+        {
+            Id = playerId;
+            NickName = nickName;
+            AvatarUrl = avatarURL;
+            GroupId = groupId;
+            GroupName = groupName;
+            GroupDescription = groupDescription;
+
+        }
+    }
+
+    public class ResultQuizForSoloModeDTO
+    {
+        public List<PlayerResultDTO> TopResultPlayers { get; set; }
+        public List<PlayerResultDTO> ResultPlayers { get; set; }
+        public ResultQuizForSoloModeDTO(List<Player> topPlayers, List<Player> normalPlayers)
+        {
+            TopResultPlayers = topPlayers.Select((x, index) => new PlayerResultDTO(x, index + 1)).ToList();
+            ResultPlayers = normalPlayers.Select(x => new PlayerResultDTO(x, null)).ToList();
+        }
+
+    }
+    
+    public class ResultQuizForTeamModeDTO
+    {
+        public List<GroupResultDTO> TopResultGroups { get; set; }
+        public List<GroupResultDTO> ResultGroups { get; set; }
+
+        public ResultQuizForTeamModeDTO(List<Group> topGroups, List<Group> normalGroups, List<Player> players)
+        {
+            TopResultGroups = topGroups.Select((x, index) => new GroupResultDTO(x, players.Where(p => p.GroupMembers.Select(gm => gm.GroupId).Contains(x.Id)).ToList(), index))
+                                       .ToList();
+            
+            ResultGroups = normalGroups.Select(x => new GroupResultDTO(x, players.Where(p => p.GroupMembers.Select(gm => gm.GroupId).Contains(x.Id)).ToList(), null))
+                                       .ToList();
+        }
+
+    }
+
+    public class PlayerResultDTO
+    {
+        public int Id { get; set; }
+        public int Score { get; set; }
+        public string NickName { get; set; }
+        public string AvatarURL { get; set; }
+        public int? Ranking { get; set; }
+
+        public PlayerResultDTO(Player player, int? ranking)
+        {
+            Id = player.Id;
+            Score = player.Score;
+            NickName = player.Nickname;
+            AvatarURL = player.AvatarUrl;
+            Ranking = ranking;
+        }
+    }
+
+    
+    public class PlayerResultDetailDTO : PlayerResultDTO
+    {
+        public List<QuestionResultDTO> QuestionResults { get; set; }
+        public PlayerResultDetailDTO(Player player, List<Question> questions) : base(player, null)
+        {
+            QuestionResults = questions.OrderBy(x => x.Id).Select(x => new QuestionResultDTO(x, player))
+                                                          .ToList();
+        }
+    }
+
+    public class QuestionResultDTO
+    {
+        public string Question { get; set; }
+        public string PlayerAnswer { get; set; }
+        public string CorrectAnswer { get; set; }
+        public bool IsCorrect { get; set; }
+        public QuestionResultDTO(Question question, Player player)
+        {
+            var playerAnswer = question.PlayerAnswers.FirstOrDefault(x => x.PlayerId.Equals(player.Id));
+            Question = question.Text;
+            PlayerAnswer = playerAnswer.Answer;
+            CorrectAnswer = question.IsCorrect;
+            IsCorrect = playerAnswer.IsCorrect;
+        }
+    }
+    
+    public class GroupResultDTO
+    {
+        public int Id { get; set; }
+        public int Score { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int? Ranking { get; set; }
+
+        public List<PlayerResultDTO> ResultGroupMembers { get; set; }
+
+        public GroupResultDTO(Group group, List<Player> groupMembers, int? ranking)
+        {
+            Id = group.Id;
+            Score = group.TotalPoint;
+            Name = group.Name;
+            Description = group.Description;
+            Ranking = ranking;
+
+            ResultGroupMembers = groupMembers.OrderByDescending(x => x.Score).Select(x => new PlayerResultDTO(x, null)).ToList();
+        }
+    }
+
+    public class JoinedPlayerDTO
+    {
+        public List<PlayerDTO> JoinedPlayers { get; set; }
+
+        public JoinedPlayerDTO(List<PlayerDTO> joinedPlayers)
+        {
+            JoinedPlayers = joinedPlayers;
+        }
+    }
+
 }
 
