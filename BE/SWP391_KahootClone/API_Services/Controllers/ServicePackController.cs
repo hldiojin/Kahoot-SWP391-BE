@@ -40,7 +40,9 @@ namespace API_Services.Controllers
 
         [HttpPut]
         [Route("Update/{servicePackId}")]
+
         [Authorize(Roles = "admin")]
+
         public async Task<IActionResult> UpdateServicePack(int servicePackId, [FromBody] CreateServicePackRequestDTO request)
         {
             var response = await _servicePackService.Update(request, servicePackId);

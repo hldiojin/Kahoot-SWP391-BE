@@ -137,6 +137,7 @@ namespace Repository.DTO
             public string Nickname { get; set; }
             public string AvatarUrl { get; set; }
             public int Score { get; set; }
+            public int QuizId { get; set; }
             
         }
         public class PlayerAnswerDTO
@@ -262,6 +263,10 @@ namespace Repository.DTO
             public long OrderCode { get; set; }
 
         }
-
+        public class JoinQuizRequestDTO
+        {
+            public int PlayerId { get; set; }
+         
+        }
     }
 }

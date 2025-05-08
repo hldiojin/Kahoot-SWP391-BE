@@ -1,7 +1,9 @@
-﻿using Repository.DTO;
+﻿using Microsoft.AspNetCore.SignalR;
+using Repository.DTO;
 using Repository.Models;
 using Repository.Repositories;
 using Service.IService;
+using Service.SignalR.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,55 +19,100 @@ namespace Service.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly PlayerRepository _playerRepository; // Inject PlayerRepository
         private readonly QuestionRepository _questionRepository; // Inject QuestionRepository
+        private readonly QuizRepository _quizRepository; // Inject QuestionRepository
+        private readonly IHubContext<KahootSignalR> _hubContext;
+        private readonly GroupRepository _groupRepository;
+        private readonly GroupMemberRepository _groupMemberRepository;
 
-        public PlayerAnswerService(PlayerAnswerRepository playerAnswerRepository, IUnitOfWork unitOfWork, PlayerRepository playerRepository, QuestionRepository questionRepository)
+        public PlayerAnswerService(PlayerAnswerRepository playerAnswerRepository, IUnitOfWork unitOfWork, PlayerRepository playerRepository, 
+                                   QuestionRepository questionRepository, QuizRepository quizRepository, IHubContext<KahootSignalR> hubContext,
+                                   GroupRepository groupRepository, GroupMemberRepository groupMemberRepository)
         {
             _playerAnswerRepository = playerAnswerRepository ?? throw new ArgumentNullException(nameof(playerAnswerRepository));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository)); // Initialize
             _questionRepository = questionRepository ?? throw new ArgumentNullException(nameof(questionRepository)); // Initialize
+            _quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
+            _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
+            _groupRepository = groupRepository ?? throw new ArgumentNullException(nameof(groupRepository));
+            _groupMemberRepository = groupMemberRepository ?? throw new ArgumentNullException(nameof(groupMemberRepository));
         }
 
         public async Task<ResponseDTO> CreatePlayerAnswerAsync(PlayerAnswerDTO playerAnswerDto)
-        {
-            // Validate PlayerId and QuestionId
-            var playerExists = await _playerRepository.GetByIdAsync(playerAnswerDto.PlayerId);
-            if (playerExists == null)
-            {
-                return new ResponseDTO(400, "Invalid PlayerId");
-            }
-
-            var questionExists = await _questionRepository.GetByIdAsync(playerAnswerDto.QuestionId);
-            if (questionExists == null)
-            {
-                return new ResponseDTO(400, "Invalid QuestionId");
-            }
-
-            // Map DTO to Model
-            var playerAnswer = new PlayerAnswer
-            {
-                PlayerId = playerAnswerDto.PlayerId,
-                QuestionId = playerAnswerDto.QuestionId,
-                AnsweredAt = playerAnswerDto.AnsweredAt,
-                IsCorrect = playerAnswerDto.IsCorrect,
-                ResponseTime = playerAnswerDto.ResponseTime,
-                Answer = playerAnswerDto.Answer
-
-            };
-
+        { 
+            var transaction =  _unitOfWork.BeginTransaction();    
             try
             {
-                await _playerAnswerRepository.CreateAsync(playerAnswer);
-                await _unitOfWork.SaveChangesAsync();
-                playerAnswerDto.Id = playerAnswer.Id;
-                var player = _unitOfWork.PlayerRepository.GetById(playerAnswer.PlayerId);
-                QuestionDTO question= MapToDTO(questionExists);
-                player.Score += CalculateSoloScore(playerAnswerDto, question); // Update player score based on the answer
+                // Validate PlayerId and QuestionId
+                var playerExists = await _playerRepository.GetPlayerByIdAsync(playerAnswerDto.PlayerId);
+                if (playerExists == null)
+                {
+                    return new ResponseDTO(400, "Invalid PlayerId");
+                }
 
-                return new ResponseDTO(201, "Player answer created successfully", player);
+                var questionExists = await _questionRepository.GetByIdAsync(playerAnswerDto.QuestionId);
+                if (questionExists == null)
+                {
+                    return new ResponseDTO(400, "Invalid QuestionId");
+                }
+
+                // Map DTO to Model
+                var playerAnswer = new PlayerAnswer
+                {
+                    PlayerId = playerAnswerDto.PlayerId,
+                    QuestionId = playerAnswerDto.QuestionId,
+                    AnsweredAt = playerAnswerDto.AnsweredAt,
+                    IsCorrect = playerAnswerDto.IsCorrect,
+                    ResponseTime = playerAnswerDto.ResponseTime,
+                    Answer = playerAnswerDto.Answer
+                };
+
+                QuestionDTO question = MapToDTO(questionExists);
+                var score = CalculateSoloScore(playerAnswerDto, question);
+                playerExists.Score += score; // Update player score based on the answer
+                GroupMember groupMember = null;
+                Group group = null;
+                if (playerExists.GroupMembers != null && playerExists.GroupMembers.Any())
+                {
+                     groupMember = playerExists.GroupMembers.FirstOrDefault(x => x.PlayerId.Equals(playerExists.Id));
+                     group = groupMember.Group;
+
+                    groupMember.TotalScore += score;
+                    group.TotalPoint += score; 
+                }
+                //check finished quiz
+                var quiz = await _quizRepository.GetQuiz(question.QuizId);
+                var notFinishedQuestions = quiz.Questions.Where(x => 
+                                                              (x.PlayerAnswers != null && (!x.PlayerAnswers.Any() ||
+                                                           x.PlayerAnswers.DistinctBy(pa => pa.PlayerId).Count()+1 < quiz.NumberOfJoinedPlayers)))
+                                                         .ToList();
+
+
+                if (!notFinishedQuestions.Any())
+                {
+                    quiz.IsStarted = false;
+                    await _quizRepository.UpdateAsync(quiz);
+                    
+                    //send signal to clients -> end quiz
+                    await _hubContext.Clients.All.SendAsync("EndQuiz", quiz.QuizCode, true);
+                }
+                if (group != null)
+                {
+                    await _groupRepository.UpdateAsync(group);
+                }
+                if (groupMember != null)
+                {
+                    await _groupMemberRepository.UpdateAsync(groupMember);
+                }
+                await _playerRepository.UpdateAsync(playerExists);
+                await _playerAnswerRepository.CreateAsync(playerAnswer);
+                transaction.Commit();
+                return new ResponseDTO(201, "Player answer created successfully" ,new PlayerResultDTO(playerExists, null));
+
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
                 // Log the exception
                 return new ResponseDTO(500, $"Error creating player answer: {ex.Message}");
             }

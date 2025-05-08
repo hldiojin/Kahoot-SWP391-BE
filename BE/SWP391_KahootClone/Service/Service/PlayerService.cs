@@ -8,40 +8,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Repository.DTO.RequestDTO;
+using PlayerDTO = Repository.DTO.RequestDTO.PlayerDTO;
 
 namespace Service.Service
 {
     public class PlayerService :  IPlayerService
     {
         private readonly PlayerRepository _playerRepository;
+        private readonly QuizRepository _quizRepository;
         private readonly IUnitOfWork _unitOfWork;
         // Inject GameSessionRepository
 
-        public PlayerService(PlayerRepository playerRepository, IUnitOfWork unitOfWork)
+        public PlayerService(PlayerRepository playerRepository, IUnitOfWork unitOfWork, QuizRepository quizRepository)
         {
             _playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            
+            _quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
         }
 
 
 
         public async Task<ResponseDTO> CreatePlayerAsync(PlayerDTO playerDto)
         {
-            //  Validate SessionId
-            
-
-            // Map DTO to Model
-            var player = new Player
-            {
-                
-                Nickname = playerDto.Nickname,
-                AvatarUrl = playerDto.AvatarUrl,
-                Score = playerDto.Score,    
-            };
-
             try
             {
+                //  Validate SessionId
+                var existingQuiz = await _quizRepository.GetByIdAsync(playerDto.QuizId);
+                if (existingQuiz == null)
+                {
+                    return new ResponseDTO(404, "Quiz not found.");
+                }
+
+                // Map DTO to Model
+                var player = new Player
+                {
+
+                    Nickname = playerDto.Nickname,
+                    AvatarUrl = playerDto.AvatarUrl,
+                    Score = playerDto.Score,
+                    QuizId = existingQuiz.Id
+                };
+
                 await _playerRepository.CreateAsync(player);
                 await _unitOfWork.SaveChangesAsync();
 

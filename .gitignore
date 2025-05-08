@@ -398,17 +398,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/BE/PhotoFinder/PhotoFinder/appsettings.json
-/BE/PhotoFinder/PhotoFinder/PhotoFinder.csproj
-/BE/PhotoFinder/PhotoFinder/appsettings.json
-# Ignore build output
+
+# .NET Core build folders
 bin/
 obj/
-*.pdb
-*.exe
-*.dll
-*.cache
-*.sourcelink.json
-*.GeneratedMSBuildEditorConfig.editorconfig
-*.AssemblyInfo.cs
-*.csproj.FileListAbsolute.txt
+
+# Common node modules locations
+/node_modules
+/wwwroot/node_modules

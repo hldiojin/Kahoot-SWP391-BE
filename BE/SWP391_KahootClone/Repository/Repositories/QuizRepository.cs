@@ -22,10 +22,12 @@ namespace Repository.Repositories
                 .Where(q => q.CreatedBy == userId)
                 .ToListAsync();
         }
-            public async Task<Boolean> checkCode(int quizCode)
-            {
-            return await _context.Quizzes
-                            .AnyAsync(q => q.QuizCode == quizCode);
+        public async Task<int> CheckCode(int quizCode)
+        {
+            var quiz = await _context.Quizzes
+                                     .FirstOrDefaultAsync(q => q.QuizCode == quizCode);
+
+            return quiz != null ? quiz.Id : 0; // returns quizId or 0 if not found
         }
 
         public async Task<IEnumerable<Quiz>> GetFavoriteQUizs(int userId)
@@ -40,6 +42,25 @@ namespace Repository.Repositories
                 .FirstOrDefaultAsync(q => q.QuizCode == quizCode);
         }
 
-        
+        public async Task<Quiz> GetQuizById(int id)
+        {
+            return await _context.Quizzes.Include(x => x.Questions)
+                                         .ThenInclude(x => x.PlayerAnswers).ThenInclude(x => x.Player).ThenInclude(x => x.GroupMembers).ThenInclude(x => x.Group)
+                                         .AsNoTracking()
+                                         .FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+        }
+        public async Task<Quiz> GetQuiz(int id)
+        {
+            return await _context.Quizzes.Include(x => x.Questions)
+                                         .ThenInclude(x => x.PlayerAnswers)
+                                         .AsNoTracking()
+                                         .FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+        }
+
+
+
+
     }
 }

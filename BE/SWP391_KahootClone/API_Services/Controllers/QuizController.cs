@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.DTO;
+using Repository.Models;
 using Service.IService;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -63,23 +64,23 @@ namespace API_Services.Controllers
         [HttpGet("check-quiz-code/{quizCode}")]
         public async Task<IActionResult> CheckQuizCode(int quizCode)
         {
-            bool exists = await _quizService.checkQuizCode(quizCode);
+            int quizId = await _quizService.checkQuizCode(quizCode);
 
-            if (exists)
+            if (quizId > 0)
             {
-                return Ok(new { message = "Quiz code is valid." });
+                return Ok(quizId);
             }
             else
             {
                 return NotFound(new { message = "Quiz code not found." });
             }
         }
-        [HttpGet("Favorite/{userId}")]
-        public async Task<IActionResult> Favorite(int userId)
-        {
-            var response = await _quizService.GetFavorite(userId);
-            return StatusCode(response.Status, response);
-        }
+        //[HttpGet("Favorite/{userId}")]
+        //public async Task<IActionResult> Favorite(int userId)
+        //{
+        //    var response = await _quizService.GetFavorite(userId);
+        //    return StatusCode(response.Status, response);
+        //}
         [HttpGet("QuizCode/{quizCode}")]
         public async Task<IActionResult> GetQuizByQuizCode(int quizCode)
         {
@@ -136,6 +137,86 @@ namespace API_Services.Controllers
                 return StatusCode(500, new ResponseDTO(500, "An unexpected error occurred."));
             }
         }
+
+
+        [HttpPost("JoinQuiz/{quizId}")]
+        public async Task<IActionResult> JoinQuizAsync([FromRoute] int quizId, [FromBody] JoinQuizRequestDTO playerDTO)
+        {
+            try
+            {
+                var response = await _quizService.JoinQuizAsync(quizId, playerDTO.PlayerId);
+                return StatusCode(response.Status, response);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, new ResponseDTO(500, "Internal Server Error", ex.Message));
+            }
+        }
+
+        [HttpPost("StartQuiz/{quizId}")]
+        [Authorize]
+        public async Task<IActionResult> StartQuizAsync([FromRoute] int quizId)
+        {
+            try
+            {
+                var response = await _quizService.StartQuizAsync(quizId);
+                return StatusCode(response.Status, response);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, new ResponseDTO(500, "Internal Server Error", ex.Message));
+            }
+        }
+
+        [HttpGet("Player/ResultQuiz/{quizId}")]
+        public async Task<IActionResult> GetResultQuizAsync([FromRoute] int quizId, [FromQuery] JoinQuizRequestDTO playerId)
+        {
+            try
+            {
+                var response = await _quizService.GetResultQuizAsync(quizId, playerId.PlayerId);
+                return StatusCode(response.Status, response);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, new ResponseDTO(500, "Internal Server Error", ex.Message));
+            }
+        }
+
+        [HttpGet("ResultQuiz/{quizId}")]
+        [Authorize]
+        public async Task<IActionResult> GetResultQuizAsync([FromRoute] int quizId)
+        {
+            try
+            {
+                var response = await _quizService.GetResultQuizAsync(quizId);
+                return StatusCode(response.Status, response);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, new ResponseDTO(500, "Internal Server Error", ex.Message));
+            }
+        }
+
+        [HttpGet("JoinedPlayers/{quizId}")]
+        [Authorize]
+        public async Task<IActionResult> GetJoinedPlayersAsync([FromRoute] int quizId)
+        {
+            try
+            {
+                var response = await _quizService.GetJoinedPlayersAsync(quizId);
+                return StatusCode(response.Status, response);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, new ResponseDTO(500, "Internal Server Error", ex.Message));
+            }
+        }
+
     }
 
 }

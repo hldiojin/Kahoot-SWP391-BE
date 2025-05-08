@@ -35,6 +35,9 @@ public partial class Quiz
 
     public string GameMode { get; set; }
 
+    public int NumberOfJoinedPlayers { get; set; } = 0; // default value = 0
+    public bool? IsStarted { get; set; }
+
     public virtual Category Category { get; set; }
 
     public virtual User CreatedByNavigation { get; set; }

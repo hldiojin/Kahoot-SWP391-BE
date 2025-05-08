@@ -1,4 +1,5 @@
-﻿using Repository.Repositories;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Service
         ServicePackRepository ServicePackRepository { get; }
         UserServicePackRepository UserServicePackRepository { get; }
         PaymentRepository PaymentRepository { get; }
-
+        IDbContextTransaction BeginTransaction();
         Task<int> SaveChangesAsync();
     }
 }
