@@ -133,10 +133,7 @@ public partial class SWP_KahootContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GroupMember_Player");
 
-            entity.HasOne(d => d.PlayerNavigation).WithMany(p => p.GroupMembers)
-                .HasForeignKey(d => d.PlayerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GroupMember_User");
+          
         });
 
         modelBuilder.Entity<Payment>(entity =>

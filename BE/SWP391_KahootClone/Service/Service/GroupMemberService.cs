@@ -65,6 +65,18 @@ namespace Service.Service // Correct namespace
         {
             try
             {
+                if (groupMemberDto == null)
+                {
+                    return new ResponseDTO(400, "Invalid request data.");
+                }
+                if(await _groupMemberRepository.GetGroupMember(groupMemberDto.GroupId, groupMemberDto.PlayerId) != null)
+                {
+                    return new ResponseDTO(409, "Group member already exists.");
+                }
+                if(  _unitOfWork.PlayerRepository.GetById(groupMemberDto.PlayerId) == null ||  _unitOfWork.GroupRepository.GetById(groupMemberDto.GroupId) == null)
+                {
+                    return new ResponseDTO(400, "Group ID and Player ID not exists.");
+                }  
                 var request = MapDtoToGroupMember(groupMemberDto);
 
                 await _groupMemberRepository.CreateAsync(request);

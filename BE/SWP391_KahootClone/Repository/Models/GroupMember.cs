@@ -23,5 +23,5 @@ public partial class GroupMember
 
     public virtual Player Player { get; set; }
 
-    public virtual User PlayerNavigation { get; set; }
+ 
 }

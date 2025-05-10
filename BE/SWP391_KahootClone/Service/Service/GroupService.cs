@@ -66,7 +66,7 @@ namespace Service.Service // Correct namespace
                 await _groupRepository.CreateAsync(group); // Use GroupRepository
                 await _unitOfWork.SaveChangesAsync();
 
-                groupDto.Id = group.Id;
+                groupDto.GroupId = group.Id;
                 return new ResponseDTO(201, "Group created successfully.", groupDto); // Return the input dto
             }
             catch (Exception ex)
@@ -126,7 +126,7 @@ namespace Service.Service // Correct namespace
         {
             return new GroupDTO
             {
-                Id = group.Id,
+                GroupId = group.Id,
                 Name = group.Name,
                 Description = group.Description,
                 Rank = group.Rank,
@@ -141,7 +141,7 @@ namespace Service.Service // Correct namespace
         {
             return new Group
             {
-                Id = groupDto.Id,
+                Id = groupDto.GroupId,
                 Name = groupDto.Name,
                 Description = groupDto.Description,
                 Rank = groupDto.Rank,

@@ -171,11 +171,11 @@ namespace API_Services.Controllers
         }
 
         [HttpGet("Player/ResultQuiz/{quizId}")]
-        public async Task<IActionResult> GetResultQuizAsync([FromRoute] int quizId, [FromQuery] JoinQuizRequestDTO playerId)
+        public async Task<IActionResult> GetResultQuizAsync([FromRoute] int quizId, [FromQuery] int playerId)
         {
             try
             {
-                var response = await _quizService.GetResultQuizAsync(quizId, playerId.PlayerId);
+                var response = await _quizService.GetResultQuizAsync(quizId, playerId);
                 return StatusCode(response.Status, response);
             }
             catch (Exception ex)
